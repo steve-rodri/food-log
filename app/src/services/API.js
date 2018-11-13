@@ -13,7 +13,31 @@ const CUSTOM = "/custom_foods"; //GET  //gets list of custom foods
 
 const APP_ID = process.env.REACT_APP_API_ID;
 const APP_KEY = process.env.REACT_APP_API_KEY;
+const USER_ID = 0;
 
 //Headers
 
 //Content-Type:application/json, x-app-id: NutritionixAppID, x-app-key: NutritionixAppKey
+
+
+async function getNatLangFoodResults(query){
+  const resp = await axios({
+    method: "post",
+    headers: {
+      ["Content-Type"]: "application/json",
+      ["x-app-id"]: APP_ID,
+      ["x-app-key"]: APP_KEY,
+      ["x-remote-user-id"]: USER_ID
+    },
+    url: BASE_URL + NAT_LANG_FOOD_SEARCH,
+    data: {
+      query: query,
+      "timezone": "US/Eastern"
+    }
+  })
+  return resp.data.foods
+}
+
+export {
+  getNatLangFoodResults
+}
