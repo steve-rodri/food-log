@@ -32,12 +32,11 @@ async function getNatLangFoodResults(query){
     url: BASE_URL + NAT_LANG_FOOD_SEARCH,
     data: {
       query: query,
-      "timezone": "US/Eastern"
     }
   })
   return resp.data.foods
 }
 
 export {
-  getNatLangFoodResults
+  getNatLangFoodResults,
 }

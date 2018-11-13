@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {getFoodResults} from "./services/API";
+import {getNatLangFoodResults} from "./services/API";
 import moment from 'moment';
-import LoginPage from './components/LoginPage';
-import AddFood from './components/AddFood';
-import Log from './components/Log.js';
+import LoginPage from './components/LoginPage/index.js';
+import AddFood from './components/AddFood/index.js';
+import Log from './components/Log/index.js';
 import './App.css';
 
 class App extends Component {
@@ -15,10 +15,13 @@ class App extends Component {
       natLangQueryInput: '',
       searchFoodInput: '',
       natLangResults: [],
-      searchFoodResults: []
+      searchFoodResults: [],
+      basket: [],
+      log: {
+        meals: [],
+        misc: []
+      }
     }
-    this.responseGoogle = this.responseGoogle.bind(this);
-    this.setView = this.setView.bind(this);
   }
 
   responseGoogle = (resp) => {
@@ -36,10 +39,14 @@ class App extends Component {
     })
   }
 
-  setView(view){
+  setView = (view) => {
     this.setState({
       currentView: view,
     })
+  }
+
+  handleViewChange = () => {
+    this.setView("Add Food");
   }
 
   getView(){
@@ -55,12 +62,16 @@ class App extends Component {
           <AddFood
             userName={this.state.userName}
             mealType={this.getMealTypebyTime}
+            natLangQueryInput={this.state.natLangQueryInput}
+            handleNatLangInputChange={this.handleNatLangInputChange}
+            handleNatLangQuery={this.handleNatLangQuery}
           />
         )
       case "Log":
         return (
           <Log
-
+            log={this.state.log}
+            handleViewChange={this.handleViewChange}
           />
         )
       // case "Targets":
@@ -104,6 +115,58 @@ class App extends Component {
 
   }
 
+  handleNatLangInputChange = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+    this.setState({
+      [name]: value,
+    })
+  }
+
+  handleNatLangQuery = async() => {
+    const query = this.state.natLangQueryInput;
+    const resp = await getNatLangFoodResults(query);
+
+    this.setState({
+      basket: resp,
+      natLangQueryInput: ''
+    })
+
+    this.logBasket();
+
+    this.setView("Log");
+  }
+
+  logBasket(){
+    const log = this.state.log;
+    const meals = this.state.log.meals;
+    const misc = this.state.log.misc;
+    const basket = this.state.basket;
+
+    if (basket.length > 1) {
+      this.setState({
+        log: {
+          ...log,
+          meals: [
+            ...meals,
+            [...basket],
+          ]
+        },
+        basket: []
+      })
+    } else if (basket.length === 1) {
+      this.setState({
+        log: {
+          ...log,
+          misc: [
+            ...misc,
+            [...basket],
+          ]
+        },
+        basket: []
+      })
+    }
+  }
 
 
 

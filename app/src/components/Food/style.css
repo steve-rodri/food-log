@@ -1,0 +1,24 @@
+.food {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.food-image {
+  height: 100px;
+  width: 100px;
+}
+
+.food-title {
+  padding: 0 10px;
+}
+
+.macronutrients {
+  height: 100px;
+  width: 100px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3 1fr);
+  justify-content: center;
+  align-items: center;
+}
