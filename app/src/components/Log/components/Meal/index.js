@@ -1,5 +1,6 @@
 import React from 'react';
 import Food from '../../../Food';
+import './style.css';
 
 export default function Meal(props){
   return (

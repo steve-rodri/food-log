@@ -34,6 +34,7 @@ async function getNatLangFoodResults(query){
       query: query,
     }
   })
+  console.log(resp.data.foods);
   return resp.data.foods
 }
 

@@ -38,20 +38,21 @@ export default class Log extends React.Component {
 
   render(){
     return (
-      <div>
+      <div id="page">
         <header>
-          <h1>Log</h1>
-          <button>Targets</button>
+          <h1 id="title">Log</h1>
+          <button id="targets">Targets</button>
         </header>
+        <main>
+          {this.state.meals.length > 0 && this.renderMeals()}
 
-        {this.state.meals.length > 0 && this.renderMeals()}
-
-        {this.state.misc.length > 0 && this.renderMisc()}
-
+          {this.state.misc.length > 0 && this.renderMisc()}
+        </main>
         <footer>
           <button
           onClick={this.props.handleViewChange}
-          >AddFood</button>
+          id="add-food"
+          >Add Food</button>
         </footer>
       </div>
     )

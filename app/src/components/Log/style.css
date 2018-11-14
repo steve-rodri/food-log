@@ -1,5 +1,6 @@
-.meals {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+#targets {
+  position: absolute;
+  top: 15%;
+  right: 0%;
+  margin: 5px;
 }

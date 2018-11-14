@@ -1,0 +1,12 @@
+#add-food-page {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: .5fr 3fr;
+  align-items: center;
+}
+
+#log-button {
+  background-color: black;
+  color: white;
+}

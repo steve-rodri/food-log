@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {getNatLangFoodResults} from "./services/API";
+import { getNatLangFoodResults } from "./services/API";
 import moment from 'moment';
 import LoginPage from './components/LoginPage/index.js';
 import AddFood from './components/AddFood/index.js';
