@@ -10,8 +10,8 @@ class App extends Component {
   constructor (props){
     super(props)
     this.state = {
-      userName: "",
-      currentView: "Login",
+      userName: "Steve",
+      currentView: "Add Food",
       natLangQueryInput: '',
       searchFoodInput: '',
       natLangResults: [],
@@ -31,6 +31,7 @@ class App extends Component {
     }
     this.setUserName(resp.profileObj.givenName)
     this.setView("Add Food");
+    //asdfasdf
   }
 
   setUserName(user){

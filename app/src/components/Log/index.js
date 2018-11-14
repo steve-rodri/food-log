@@ -38,7 +38,7 @@ export default class Log extends React.Component {
 
   render(){
     return (
-      <div id="page">
+      <div className="Page" id="log-page">
         <header>
           <h1 id="title">Log</h1>
           <button id="targets">Targets</button>
@@ -51,7 +51,7 @@ export default class Log extends React.Component {
         <footer>
           <button
           onClick={this.props.handleViewChange}
-          id="add-food"
+          id="add-food-button"
           >Add Food</button>
         </footer>
       </div>

@@ -5,26 +5,26 @@ import './style.css';
 export default function AddFood(props){
 
   return (
-    <div id="add-food-page">
-      <h1 id="greeting" >Hey {props.userName},{'\n'}What's for {props.mealType()}?</h1>
-      <main>
-        <div>
-          <p>Try typing something like...</p>
-          <p>"For lunch I had 1 sweet potato and a cup of black beans"</p>
-          <p>You could even input a whole recipe...</p>
-        </div>
+    <div className="Page" id="add-food-page">
+      <header id="greeting">
+        <h1>Hey {props.userName},</h1>
+        <h1>What's for {props.mealType()}?</h1>
+
+      </header>
+      <main id="natLangSearch">
         <textarea
           name="natLangQueryInput"
           value={props.natLangQueryInput}
           onChange={props.handleNatLangInputChange}
-          >
-          </textarea>
+          placeholder={`Try typing something like...\n\n"I had 1 sweet potato and a cup of black beans" \n\n You could even input a whole recipe...`}
+        >
+        </textarea>
       </main>
       <footer>
-      <button
-        onClick={props.handleNatLangQuery}
-        id="log-button"
-        >Log</button>
+        <button
+          onClick={props.handleNatLangQuery}
+          id="log-button"
+        >Add</button>
       </footer>
     </div>
   )

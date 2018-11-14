@@ -1,7 +1,7 @@
 #login-page {
   height: 100vh;
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: 2fr 3fr;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
