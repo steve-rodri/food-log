@@ -34,7 +34,6 @@ async function getNatLangFoodResults(query){
       query: query,
     }
   })
-  console.log(resp.data.foods);
   return resp.data.foods
 }
 
@@ -51,10 +50,10 @@ async function getSingleItemResults(query){
     },
     url: BASE_URL + SEARCH + QUERY + BRANDED,
   })
-  console.log(resp);
-  return resp
+  return resp.data
 }
 
 export {
   getNatLangFoodResults,
+  getSingleItemResults
 }

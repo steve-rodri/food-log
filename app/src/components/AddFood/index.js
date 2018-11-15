@@ -5,7 +5,9 @@ import moment from 'moment';
 import './style.css';
 
 //props
+
 // userName
+// basket
 
 // natLangInput
 // handleNatLangInputChange
@@ -14,6 +16,10 @@ import './style.css';
 // singleItemInput
 // handleSingleItemInputChange
 // handleSingleItemQuery
+// searchItems
+// handleFoodSelect
+
+// logBasket
 // badRequest
 
 function getMealTypebyTime(){
@@ -35,14 +41,17 @@ function getMealTypebyTime(){
 }
 
 function getView(props){
-  debugger;
   switch (props.badRequest) {
     case 3:
       return (
         <SingleItem
+          basket={props.basket}
           singleItemInput={props.singleItemQueryInput}
           handleSingleItemInputChange={props.handleSingleItemInputChange}
           handleSingleItemQuery={props.handleSingleItemQuery}
+          searchItems={props.searchItems}
+          onSelectFood={props.handleFoodSelect}
+          logBasket={props.logBasket}
         />
       )
     default:

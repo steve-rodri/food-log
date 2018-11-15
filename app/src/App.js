@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { getNatLangFoodResults } from "./services/API";
-import moment from 'moment';
+import { getNatLangFoodResults, getSingleItemResults } from "./services/API";
 import LoginPage from './components/LoginPage/index.js';
 import AddFood from './components/AddFood/index.js';
 import Log from './components/Log/index.js';
@@ -10,18 +9,19 @@ class App extends Component {
   constructor (props){
     super(props)
     this.state = {
-      userName: "Steve",
+      userName: "",
       currentView: "Add Food",
       natLangInput: '',
       singleItemInput: '',
       natLangResults: [],
       singleItemResults: '',
+      searchItems: null,
       basket: [],
       log: {
         meals: [],
         misc: []
       },
-      badRequest: 3,
+      badRequest: 0,
 
     }
   }
@@ -33,7 +33,6 @@ class App extends Component {
     }
     this.setUserName(resp.profileObj.givenName)
     this.setView("Add Food");
-    //asdfasdf
   }
 
   setUserName(user){
@@ -64,6 +63,8 @@ class App extends Component {
         return (
           <AddFood
             userName={this.state.userName}
+            basket={this.state.basket}
+            logBasket={this.logBasket}
 
             natLangInput={this.state.natLangInput}
             handleNatLangInputChange={this.handleInputChange}
@@ -72,6 +73,8 @@ class App extends Component {
             singleItemInput={this.state.singleItemInput}
             handleSingleItemInputChange={this.handleInputChange}
             handleSingleItemQuery={this.handleSingleItemQuery}
+            searchItems={this.state.searchItems}
+            handleFoodSelect={this.handleFoodSelect}
 
             badRequest={this.state.badRequest}
           />
@@ -114,54 +117,56 @@ class App extends Component {
   }
 
   handleNatLangQuery = async() => {
-    const query = this.state.natLangQueryInput;
+    const query = this.state.natLangInput;
     try {
-
       const resp = await getNatLangFoodResults(query);
       this.setState({
         basket: resp,
         natLangQueryInput: ''
       })
+      this.logBasket();
 
     } catch (e) {
+
+      alert("Something might be wrong with your text, check for typos. If that's good, try again. If still having issues, try a single item search.")
 
       this.setState({
         badRequest: this.state.badRequest + 1
       })
 
-    } finally {
-
-      this.logBasket();
-
-      this.setView("Log");
     }
   }
 
-  handleSingleItemQuery = async() => {
+  handleSingleItemQuery = async(e) => {
+    e.preventDefault();
     const query = this.state.singleItemInput;
     try {
 
-      const resp = await getNatLangFoodResults(query);
+      const resp = await getSingleItemResults(query);
       this.setState({
-        basket: resp,
-        natLangQueryInput: ''
+        searchItems: resp,
+        singleItemInputInput: ''
       })
 
     } catch (e) {
-
       this.setState({
         badRequest: this.state.badRequest + 1
       })
 
-    } finally {
-
-      this.logBasket();
-
-      this.setView("Log");
     }
   }
 
-  logBasket(){
+  handleFoodSelect = (food) => {
+    const basket = this.state.basket;
+    this.setState({
+      basket: [
+        ...basket,
+        food
+      ]
+    })
+  }
+
+  logBasket = () => {
     const log = this.state.log;
     const meals = this.state.log.meals;
     const misc = this.state.log.misc;
@@ -176,7 +181,8 @@ class App extends Component {
             [...basket],
           ]
         },
-        basket: []
+        basket: [],
+        badRequest: 0,
       })
     } else if (basket.length === 1) {
       this.setState({
@@ -187,9 +193,11 @@ class App extends Component {
             [...basket],
           ]
         },
-        basket: []
+        basket: [],
+        badRequest: 0,
       })
     }
+    this.setView("Log");
   }
 
   render() {

@@ -1,10 +1,17 @@
 import React from 'react';
 import './style.css';
 
+//props
+
+// food
+// handleFoodSelect
+
+
 export default function Food(props){
   const food = props.food;
+
   return (
-    <div className="food">
+    <div className="food"  onClick={props.handleFoodSelect}>
       <img className="food-image" src={food.photo.thumb} alt={food.food_name}/>
       <h6 className= "food-title">{food.serving_qty} {food.serving_unit} {food.food_name}</h6>
         <div className="macronutrients">
