@@ -1,7 +1,14 @@
 import React from 'react';
 import Meal from './components/Meal';
 import Misc from './components/Misc';
-import './style.css'
+import './style.css';
+
+// props
+
+// log
+// handleViewChange
+// handleFoodSelect
+
 
 export default class Log extends React.Component {
   constructor(props){
@@ -18,6 +25,7 @@ export default class Log extends React.Component {
         {this.state.meals.map( meal =>
           <Meal
             meal={meal}
+            onSelectFood={this.props.handleFoodSelect}
           />
         )}
       </div>
@@ -30,6 +38,7 @@ export default class Log extends React.Component {
         {this.state.misc.map( misc =>
           <Misc
             misc={misc}
+            onSelectFood={this.props.handleFoodSelect}
           />
         )}
       </div>
@@ -41,7 +50,7 @@ export default class Log extends React.Component {
       <div className="Page" id="log-page">
         <header>
           <h1 id="title">Log</h1>
-          <button id="targets">Targets</button>
+          <button id="targets" onClick={() => this.props.handleViewChange('Targets')}>Targets</button>
         </header>
         <main>
           {this.state.meals.length > 0 && this.renderMeals()}
@@ -50,7 +59,7 @@ export default class Log extends React.Component {
         </main>
         <footer>
           <button
-          onClick={this.props.handleViewChange}
+          onClick={() => this.props.handleViewChange('Add Food')}
           id="add-food-button"
           >Add Food</button>
         </footer>

@@ -11,20 +11,16 @@ import './style.css';
 // onSelectFood
 // logBasket
 
-
-
 function listFoods(props, results){
-    const commonFoods = results.common;
-    const brandedFoods = results.branded;
-  // const commonFoodsArr = [...results.common];
-  // const brandedFoodsArr = [...results.branded];
-  // const commonFoods = commonFoodsArr.sort( food =>
-  //   food.food_name.length <= props.singleItemInput.length
-  // )
-  // const brandedFoods = brandedFoodsArr.sort( food =>
-  //   food.food_name.length <= props.singleItemInput.length
-  // )
+  const commonFoodsArr = [...results.common];
+  const brandedFoodsArr = [...results.branded];
 
+  const commonFoods = commonFoodsArr.sort((x,y) => {
+    return x.food_name.length - y.food_name.length
+  })
+  const brandedFoods = brandedFoodsArr.sort( (x,y) => {
+    return x.food_name.length - y.food_name.length
+  })
 
   return (
     <div id="results">
@@ -32,7 +28,8 @@ function listFoods(props, results){
         {commonFoods.map( food =>
           <Food
             food={food}
-            handleFoodSelect={() => props.onSelectFood(food)}
+            handleFoodSelect={() => props.onSelectFood(food, "Add Food")}
+            key={food.ndb_no}
           />
         )}
       </div>
@@ -40,7 +37,8 @@ function listFoods(props, results){
         {brandedFoods.map( food =>
           <Food
             food={food}
-            handleFoodSelect={() => props.onSelectFood(food)}
+            handleFoodSelect={() => props.onSelectFood(food, "Add Food")}
+            key={food.ndb_no}
           />
         )}
       </div>
@@ -74,7 +72,7 @@ export default function SingleItem(props){
           basket: {props.basket.length}
         </div>
         <button
-          onClick={props.logBasket}//
+          onClick={props.logBasket}
           className="log-button"
         >Add</button>
       </footer>

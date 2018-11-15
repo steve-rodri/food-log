@@ -5,6 +5,7 @@ import './style.css';
 
 // food
 // handleFoodSelect
+// currentPage
 
 
 export default function Food(props){
@@ -14,6 +15,7 @@ export default function Food(props){
     <div className="food"  onClick={props.handleFoodSelect}>
       <img className="food-image" src={food.photo.thumb} alt={food.food_name}/>
       <h6 className= "food-title">{food.serving_qty} {food.serving_unit} {food.food_name}</h6>
+
         <div className="macronutrients">
           <div>C:</div>
           <div>{Math.round(food.nf_total_carbohydrate)}g</div>

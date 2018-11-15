@@ -34,8 +34,8 @@ button:hover {
 main {
   display:flex;
   flex-direction: column;
-  align-content: top;
-  justify-content: center;
+  align-content: center;
+  justify-content: top;
   overflow: hidden;
 }
 

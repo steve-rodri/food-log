@@ -3,6 +3,7 @@ import { getNatLangFoodResults, getSingleItemResults } from "./services/API";
 import LoginPage from './components/LoginPage/index.js';
 import AddFood from './components/AddFood/index.js';
 import Log from './components/Log/index.js';
+import Targets from './components/Targets/index.js';
 import './App.css';
 
 class App extends Component {
@@ -10,7 +11,7 @@ class App extends Component {
     super(props)
     this.state = {
       userName: "",
-      currentView: "Add Food",
+      currentView: "Log",
       natLangInput: '',
       singleItemInput: '',
       natLangResults: [],
@@ -47,8 +48,8 @@ class App extends Component {
     })
   }
 
-  handleViewChange = () => {
-    this.setView("Add Food");
+  handleViewChange = (view) => {
+    this.setView(view);
   }
 
   getView(){
@@ -63,6 +64,7 @@ class App extends Component {
         return (
           <AddFood
             userName={this.state.userName}
+            currentView={this.state.currentView}
             basket={this.state.basket}
             logBasket={this.logBasket}
 
@@ -82,16 +84,18 @@ class App extends Component {
       case "Log":
         return (
           <Log
+            currentPage={this.state.currentPage}
             log={this.state.log}
             handleViewChange={this.handleViewChange}
+            handleFoodSelect={this.handleFoodSelect}
           />
         )
-      // case "Targets":
-      //  return (
-      //     <Targets
-      //
-      //     />
-      //   )
+      case "Targets":
+       return (
+          <Targets
+
+          />
+        )
       // case "Nutrient Breakdown":
       //  return (
       //    <NutrientBreakdown
@@ -116,7 +120,8 @@ class App extends Component {
     })
   }
 
-  handleNatLangQuery = async() => {
+  handleNatLangQuery = async(e) => {
+    e.preventDefault();
     const query = this.state.natLangInput;
     try {
       const resp = await getNatLangFoodResults(query);
@@ -156,14 +161,21 @@ class App extends Component {
     }
   }
 
-  handleFoodSelect = (food) => {
-    const basket = this.state.basket;
-    this.setState({
-      basket: [
-        ...basket,
-        food
-      ]
-    })
+  handleFoodSelect = (food, view) => {
+    switch (view) {
+      case "Add Food":
+        const basket = this.state.basket;
+        this.setState({
+          basket: [
+            ...basket,
+            food
+          ]
+        })
+        break;
+      case "Log":
+        this.setView("Targets")
+        break;
+    }
   }
 
   logBasket = () => {
