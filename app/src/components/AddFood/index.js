@@ -1,31 +1,69 @@
 import React from 'react';
+import NatLang from './components/NatLang';
+import SingleItem from './components/SingleItem';
 import moment from 'moment';
 import './style.css';
 
-export default function AddFood(props){
+//props
+// userName
 
+// natLangInput
+// handleNatLangInputChange
+// handleNatLangQuery
+
+// singleItemInput
+// handleSingleItemInputChange
+// handleSingleItemQuery
+// badRequest
+
+function getMealTypebyTime(){
+  const currentTime = moment().format();
+  const morningZ = moment().startOf('day').add(6, "hours");
+  const morning = moment(morningZ).format()
+  const noonZ = moment().startOf('day').add(11, "hours");
+  const noon = moment(noonZ).format()
+  const eveningZ = moment().startOf('day').add(17, "hours");
+  const evening = moment(eveningZ).format();
+
+  if (moment(currentTime).isBetween(morning, noon)) {
+    return "Breakfast"
+  } else if (moment(currentTime).isBetween(noon, evening)) {
+    return "Lunch"
+  } else if (moment(currentTime).isAfter(evening)) {
+    return "Dinner"
+  }
+}
+
+function getView(props){
+  debugger;
+  switch (props.badRequest) {
+    case 3:
+      return (
+        <SingleItem
+          singleItemInput={props.singleItemQueryInput}
+          handleSingleItemInputChange={props.handleSingleItemInputChange}
+          handleSingleItemQuery={props.handleSingleItemQuery}
+        />
+      )
+    default:
+      return (
+        <NatLang
+          userName={props.userName}
+          mealType={getMealTypebyTime()}
+
+          natLangInput={props.natLangInput}
+          handleNatLangInputChange={props.handleNatLangInputChange}
+          handleNatLangQuery={props.handleNatLangQuery}
+        />
+      )
+
+  }
+}
+
+export default function AddFood(props) {
   return (
     <div className="Page" id="add-food-page">
-      <header id="greeting">
-        <h1>Hey {props.userName},</h1>
-        <h1>What's for {props.mealType()}?</h1>
-
-      </header>
-      <main id="natLangSearch">
-        <textarea
-          name="natLangQueryInput"
-          value={props.natLangQueryInput}
-          onChange={props.handleNatLangInputChange}
-          placeholder={`Try typing something like...\n\n"I had 1 sweet potato and a cup of black beans" \n\n You could even input a whole recipe...`}
-        >
-        </textarea>
-      </main>
-      <footer>
-        <button
-          onClick={props.handleNatLangQuery}
-          id="log-button"
-        >Add</button>
-      </footer>
+      {getView(props)}
     </div>
   )
 }

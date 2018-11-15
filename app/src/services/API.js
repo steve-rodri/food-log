@@ -38,6 +38,23 @@ async function getNatLangFoodResults(query){
   return resp.data.foods
 }
 
+async function getSingleItemResults(query){
+  const QUERY = `?query=${query}`;
+  const BRANDED = `?branded=true`;
+  const SELF = `?self=true`;
+  const resp = await axios({
+    method: "get",
+    headers: {
+      ["x-app-id"]: APP_ID,
+      ["x-app-key"]: APP_KEY,
+      ["x-remote-user-id"]: USER_ID
+    },
+    url: BASE_URL + SEARCH + QUERY + BRANDED,
+  })
+  console.log(resp);
+  return resp
+}
+
 export {
   getNatLangFoodResults,
 }

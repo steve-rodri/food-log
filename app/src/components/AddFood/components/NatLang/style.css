@@ -1,0 +1,9 @@
+#nat-lang-search-page {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: .75fr 4.5fr .75fr;
+}
+
+#greeting {
+  display: block;
+}

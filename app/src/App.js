@@ -12,15 +12,17 @@ class App extends Component {
     this.state = {
       userName: "Steve",
       currentView: "Add Food",
-      natLangQueryInput: '',
-      searchFoodInput: '',
+      natLangInput: '',
+      singleItemInput: '',
       natLangResults: [],
-      searchFoodResults: [],
+      singleItemResults: '',
       basket: [],
       log: {
         meals: [],
         misc: []
-      }
+      },
+      badRequest: 3,
+
     }
   }
 
@@ -62,10 +64,16 @@ class App extends Component {
         return (
           <AddFood
             userName={this.state.userName}
-            mealType={this.getMealTypebyTime}
-            natLangQueryInput={this.state.natLangQueryInput}
-            handleNatLangInputChange={this.handleNatLangInputChange}
+
+            natLangInput={this.state.natLangInput}
+            handleNatLangInputChange={this.handleInputChange}
             handleNatLangQuery={this.handleNatLangQuery}
+
+            singleItemInput={this.state.singleItemInput}
+            handleSingleItemInputChange={this.handleInputChange}
+            handleSingleItemQuery={this.handleSingleItemQuery}
+
+            badRequest={this.state.badRequest}
           />
         )
       case "Log":
@@ -97,26 +105,7 @@ class App extends Component {
     }
   }
 
-  getMealTypebyTime(){
-    const currentTime = moment().format();
-    const morningZ = moment().startOf('day').add(6, "hours");
-    const morning = moment(morningZ).format()
-    const noonZ = moment().startOf('day').add(11, "hours");
-    const noon = moment(noonZ).format()
-    const eveningZ = moment().startOf('day').add(17, "hours");
-    const evening = moment(eveningZ).format();
-
-    if (moment(currentTime).isBetween(morning, noon)) {
-      return "Breakfast"
-    } else if (moment(currentTime).isBetween(noon, evening)) {
-      return "Lunch"
-    } else if (moment(currentTime).isAfter(evening)) {
-      return "Dinner"
-    }
-
-  }
-
-  handleNatLangInputChange = (e) => {
+  handleInputChange = (e) => {
     const name = e.target.name
     const value = e.target.value
     this.setState({
@@ -126,16 +115,50 @@ class App extends Component {
 
   handleNatLangQuery = async() => {
     const query = this.state.natLangQueryInput;
-    const resp = await getNatLangFoodResults(query);
+    try {
 
-    this.setState({
-      basket: resp,
-      natLangQueryInput: ''
-    })
+      const resp = await getNatLangFoodResults(query);
+      this.setState({
+        basket: resp,
+        natLangQueryInput: ''
+      })
 
-    this.logBasket();
+    } catch (e) {
 
-    this.setView("Log");
+      this.setState({
+        badRequest: this.state.badRequest + 1
+      })
+
+    } finally {
+
+      this.logBasket();
+
+      this.setView("Log");
+    }
+  }
+
+  handleSingleItemQuery = async() => {
+    const query = this.state.singleItemInput;
+    try {
+
+      const resp = await getNatLangFoodResults(query);
+      this.setState({
+        basket: resp,
+        natLangQueryInput: ''
+      })
+
+    } catch (e) {
+
+      this.setState({
+        badRequest: this.state.badRequest + 1
+      })
+
+    } finally {
+
+      this.logBasket();
+
+      this.setView("Log");
+    }
   }
 
   logBasket(){
@@ -168,8 +191,6 @@ class App extends Component {
       })
     }
   }
-
-
 
   render() {
     return (

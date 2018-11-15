@@ -1,18 +1,8 @@
-#add-food-page {
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: .75fr 4.5fr .75fr;
-}
-
-#greeting {
-  display: block;
-}
-
-#log-button {
+.log-button {
   border-color: rgb(0,255,100);
   color: rgb(0,255,100);
 }
 
-#log-button:active {
+.log-button:active {
   background-color: rgba(255,255,255,.2);
 }
