@@ -1,6 +1,9 @@
 .food {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+  "left middle right";
   width: 90%;
   margin: 3px auto;
   border: 2px solid black;
@@ -27,6 +30,26 @@
   justify-self: center;
   align-self: center;
 }
+
+.delete-button {
+  color: red;
+  background-color: white;
+  border-color: red;
+  width: 50px;
+  height: 25px;
+  font-size: 12px;
+  padding: 0px;
+
+  grid-area: right;
+  justify-self: right;
+  align-self: center;
+}
+
+.delete-button:active {
+  background-color: rgba(0,0,0,.1);
+  border-style: inset;
+}
+
 
 .macronutrients {
   height: 55px;

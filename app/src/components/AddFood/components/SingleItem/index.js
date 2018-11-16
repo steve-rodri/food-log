@@ -10,6 +10,7 @@ import './style.css';
 // searchItems
 // onSelectFood
 // logBasket
+// handleViewChange
 
 function listFoods(props, results){
   const commonFoodsArr = [...results.common];
@@ -25,20 +26,20 @@ function listFoods(props, results){
   return (
     <div id="results">
       <div className="food-group">
-        {commonFoods.map( food =>
+        {commonFoods.map( (food, id) =>
           <Food
             food={food}
             handleFoodSelect={() => props.onSelectFood(food, "Add Food")}
-            key={food.ndb_no}
+            key={id}
           />
         )}
       </div>
       <div className="food-group">
-        {brandedFoods.map( food =>
+        {brandedFoods.map( (food, id) =>
           <Food
             food={food}
             handleFoodSelect={() => props.onSelectFood(food, "Add Food")}
-            key={food.ndb_no}
+            key={id}
           />
         )}
       </div>
@@ -51,7 +52,12 @@ export default function SingleItem(props){
   return (
     <div className="Page" id="single-item-search-page">
       <header>
-        <h1>Search</h1>
+        <button
+          className="back-button-top"
+          onClick={()=> props.handleViewChange('Nat Lang')}
+        >Back
+        </button>
+        <h1 className="title" >Search</h1>
       </header>
       <main>
 
@@ -68,13 +74,16 @@ export default function SingleItem(props){
 
       </main>
       <footer>
-        <div>
+        <button
+          id="basket"
+          onClick={() => props.handleViewChange('Basket')}
+        >
           basket: {props.basket.length}
-        </div>
+        </button>
         <button
           onClick={props.logBasket}
           className="log-button"
-        >Add</button>
+        >Log</button>
       </footer>
     </div>
   )

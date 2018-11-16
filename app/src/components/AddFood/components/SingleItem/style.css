@@ -1,3 +1,13 @@
+.title {
+  grid-area: middle;
+  justify-self: center;
+}
+
+.back-button-top{
+  width: 100px;
+  grid-area: left;
+  justify-self: left;
+}
 #single-item-search {
   display: flex;
   justify-content: center;
@@ -16,4 +26,9 @@
 .food-group {
   width: 80%;
   margin: 0 auto;
+}
+
+#basket {
+  margin-left: 5px;
+  padding: 5px;
 }

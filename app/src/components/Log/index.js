@@ -50,7 +50,7 @@ export default class Log extends React.Component {
       <div className="Page" id="log-page">
         <header>
           <h1 id="title">Log</h1>
-          <button id="targets" onClick={() => this.props.handleViewChange('Targets')}>Targets</button>
+          <button className="edit-button" onClick={() => this.props.handleViewChange('Edit Log')}>Edit</button>
         </header>
         <main>
           {this.state.meals.length > 0 && this.renderMeals()}
@@ -62,6 +62,10 @@ export default class Log extends React.Component {
           onClick={() => this.props.handleViewChange('Add Food')}
           id="add-food-button"
           >Add Food</button>
+          <button
+            id="targets"
+            onClick={() => this.props.handleViewChange('Targets')}
+          >Targets</button>
         </footer>
       </div>
     )

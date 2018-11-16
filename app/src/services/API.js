@@ -39,8 +39,9 @@ async function getNatLangFoodResults(query){
 
 async function getSingleItemResults(query){
   const QUERY = `?query=${query}`;
-  const BRANDED = `?branded=true`;
-  const SELF = `?self=true`;
+  const BRANDED = `&branded=true`;
+  const SELF = `&self=true`;
+  const DETAILED = `&detailed=true`;
   const resp = await axios({
     method: "get",
     headers: {
@@ -48,7 +49,7 @@ async function getSingleItemResults(query){
       ["x-app-key"]: APP_KEY,
       ["x-remote-user-id"]: USER_ID
     },
-    url: BASE_URL + SEARCH + QUERY + BRANDED,
+    url: BASE_URL + SEARCH + QUERY + DETAILED + BRANDED,
   })
   return resp.data
 }

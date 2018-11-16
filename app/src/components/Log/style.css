@@ -1,11 +1,24 @@
+#title {
+  grid-area: middle;
+  justify-self: center;
+}
+
 #targets {
-  margin: 5px;
+  grid-area: right;
+  justify-self: right;
   width: 100px;
-  position: absolute;
-  top: 0%;
-  right: 0%;
 }
 
 #add-food-button {
-  margin: 7px 0;
+  grid-area: middle;
+  justify-self: center;
+  align-self: center;
+  border-color: rgb(0,255,100);
+  color: rgb(0,255,100);
+}
+
+.edit-button {
+  grid-area: right;
+  justify-self: right;
+  width: 75px;
 }

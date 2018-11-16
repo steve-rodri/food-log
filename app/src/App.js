@@ -11,7 +11,7 @@ class App extends Component {
     super(props)
     this.state = {
       userName: "",
-      currentView: "Log",
+      currentView: "Add Food",
       natLangInput: '',
       singleItemInput: '',
       natLangResults: [],
@@ -77,6 +77,7 @@ class App extends Component {
             handleSingleItemQuery={this.handleSingleItemQuery}
             searchItems={this.state.searchItems}
             handleFoodSelect={this.handleFoodSelect}
+            handleDelete={this.handleDelete}
 
             badRequest={this.state.badRequest}
           />
@@ -172,8 +173,31 @@ class App extends Component {
           ]
         })
         break;
-      case "Log":
+      case "Log" || "Basket":
         this.setView("Targets")
+        break;
+    }
+  }
+
+  handleDelete = (id, view1, view2) => {
+    switch (view1) {
+      case "Log":
+        const meals = [...this.state.log.meals];
+        const misc = [...this.state.log.misc];
+
+        
+
+        break;
+      case "Add Food":
+        switch (view2) {
+          case "Basket":
+            const basket = [...this.state.basket];
+              basket.splice(id, 1);
+              this.setState({
+                basket: basket,
+              })
+            break;
+        }
         break;
     }
   }
@@ -194,6 +218,7 @@ class App extends Component {
           ]
         },
         basket: [],
+        searchItems: null,
         badRequest: 0,
       })
     } else if (basket.length === 1) {
@@ -206,6 +231,7 @@ class App extends Component {
           ]
         },
         basket: [],
+        searchItems: null,
         badRequest: 0,
       })
     }

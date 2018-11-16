@@ -12,9 +12,11 @@ import './style.css';
 export default function NatLang(props){
   return (
     <div className="Page" id="nat-lang-search-page">
-      <header id="greeting">
-        <h1>Hey {props.userName},</h1>
-        <h1>What's for {props.mealType}?</h1>
+      <header>
+        <div id="greeting" >
+          <h1>Hey {props.userName},</h1>
+          <h1>What's for {props.mealType}?</h1>
+        </div>
         <button id="single-item" onClick={() => props.handleViewChange("Single Item")}>Search</button>
       </header>
       <main>
@@ -31,7 +33,7 @@ export default function NatLang(props){
       <footer>
         <button
           onClick={props.handleNatLangQuery}
-          id="log-button"
+          className="log-button"
         >Add</button>
       </footer>
     </div>

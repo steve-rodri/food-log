@@ -4,19 +4,19 @@
   grid-template-rows: .75fr 4.5fr .75fr;
 }
 
+#greeting {
+  grid-area: left;
+  justify-self: left;
+  align-self: center;
+}
+
 #nat-lang-search {
   height: 100%;
   width: 100%;
 }
 
-#greeting {
-  display: block;
-}
-
 #single-item {
-  margin: 5px;
   width: 100px;
-  position: absolute;
-  top: 0%;
-  right: 0%;
+  grid-area: right;
+  justify-self: right;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Basket from './components/Basket';
 import NatLang from './components/NatLang';
 import SingleItem from './components/SingleItem';
 import moment from 'moment';
@@ -20,6 +21,7 @@ import './style.css';
 // handleSingleItemQuery
 // searchItems
 // handleFoodSelect
+// handleDelete
 
 // badRequest
 
@@ -27,7 +29,8 @@ export default class AddFood extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      currentView: "Nat Lang"
+      currentView: "Basket",
+      basketCount: 0
     }
     this.setView = this.setView.bind(this);
   }
@@ -40,16 +43,31 @@ export default class AddFood extends React.Component {
 
   getView(){
     switch (this.state.currentView) {
+      case "Basket":
+        return (
+          <Basket
+            addFoodView={this.state.currentView}
+            appView={this.props.currentView}
+            basket={this.props.basket}
+            basketCount={this.state.basketCount}
+            logBasket={this.props.logBasket}
+            handleViewChange={this.setView}
+            onDelete={this.props.handleDelete}
+          />
+        )
       case "Single Item":
         return (
           <SingleItem
+            addFoodView={this.state.currentView}
+            appView={this.props.currentView}
             basket={this.props.basket}
+            logBasket={this.props.logBasket}
             singleItemInput={this.props.singleItemQueryInput}
             handleSingleItemInputChange={this.props.handleSingleItemInputChange}
             handleSingleItemQuery={this.props.handleSingleItemQuery}
             searchItems={this.props.searchItems}
             onSelectFood={this.props.handleFoodSelect}
-            logBasket={this.props.logBasket}
+            handleViewChange={this.setView}
           />
         )
       case "Nat Lang":
