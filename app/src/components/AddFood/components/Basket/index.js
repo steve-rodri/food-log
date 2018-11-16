@@ -31,7 +31,7 @@ export default function Basket (props) {
 
         <button
           className="log-button"
-          onClick={() => props.handleViewChange('Log')}
+          onClick={props.logBasket}
         >Log
         </button>
 
@@ -51,7 +51,10 @@ function renderBasket(props){
             data-id={id}
             addFoodView={props.addFoodView}
             appView={props.appView}
-            handleDelete={() => props.onDelete(id, props.appView, props.addFoodView)}
+            handleDelete={(e) => {
+              e.stopPropagation();
+              props.onDelete(id, props.appView, props.addFoodView)
+            }}
           />
         )}
       </div>

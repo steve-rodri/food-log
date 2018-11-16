@@ -6,6 +6,8 @@ import './style.css';
 
 // misc
 // onSelectFood
+// editMode
+// handleDelete
 
 export default function Misc(props){
   return (
@@ -13,9 +15,24 @@ export default function Misc(props){
       {props.misc.map(food =>
         <Food
           food={food}
-          handleFoodSelect={() => props.onSelectFood(food, "Log")}
+          handleFoodSelect={(e) => {
+            e.stopImmediatePropagation();
+            props.onSelectFood(food, "Log")
+          }}
+          editMode={props.editMode}
+          handleDelete={props.handleDelete}
         />
       )}
     </div>
+  )
+}
+
+function renderDeleteButton(props){
+  return(
+    <button
+      className="delete-button"
+      onClick={props.handleDelete}
+    >Delete
+    </button>
   )
 }

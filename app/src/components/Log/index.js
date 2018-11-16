@@ -8,24 +8,41 @@ import './style.css';
 // log
 // handleViewChange
 // handleFoodSelect
+// onDelete
 
 
 export default class Log extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      meals: props.log.meals,
-      misc: props.log.misc
+      editMode: false,
     }
+  }
+
+  // componentWillReceiveProps(newProps){
+  //   this.setState({
+  //     meals: newProps.log.meals,
+  //     misc: newProps.log.misc
+  //   })
+  // }
+
+  toggleEdit = () => {
+    const toggle = this.state.editMode;
+    this.setState({
+      editMode: !toggle
+    })
   }
 
   renderMeals(){
     return (
       <div className="meals">
-        {this.state.meals.map( meal =>
+        {this.props.log.meals.map( (meal, id) =>
           <Meal
+            key={id}
             meal={meal}
             onSelectFood={this.props.handleFoodSelect}
+            editMode={this.state.editMode}
+            handleDelete={() => this.props.onDelete(id, "meal", "Log")}
           />
         )}
       </div>
@@ -35,10 +52,13 @@ export default class Log extends React.Component {
   renderMisc(){
     return (
       <div className="misc-items">
-        {this.state.misc.map( misc =>
+        {this.props.log.misc.map( (misc, id) =>
           <Misc
+            key={id}
             misc={misc}
             onSelectFood={this.props.handleFoodSelect}
+            editMode={this.state.editMode}
+            handleDelete={() => this.props.onDelete(id, "misc", "Log")}
           />
         )}
       </div>
@@ -50,18 +70,17 @@ export default class Log extends React.Component {
       <div className="Page" id="log-page">
         <header>
           <h1 id="title">Log</h1>
-          <button className="edit-button" onClick={() => this.props.handleViewChange('Edit Log')}>Edit</button>
+          <button className="edit-button" onClick={this.toggleEdit}>Edit</button>
         </header>
         <main>
-          {this.state.meals.length > 0 && this.renderMeals()}
-
-          {this.state.misc.length > 0 && this.renderMisc()}
+          {this.props.log.meals.length > 0 && this.renderMeals()}
+          {this.props.log.misc.length > 0 && this.renderMisc()}
         </main>
         <footer>
           <button
           onClick={() => this.props.handleViewChange('Add Food')}
           id="add-food-button"
-          >Add Food</button>
+          >Add</button>
           <button
             id="targets"
             onClick={() => this.props.handleViewChange('Targets')}

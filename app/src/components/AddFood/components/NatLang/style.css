@@ -1,13 +1,11 @@
-#nat-lang-search-page {
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: .75fr 4.5fr .75fr;
-}
-
 #greeting {
-  grid-area: left;
+  grid-column: 1/ span 3;
   justify-self: left;
   align-self: center;
+}
+
+#nat-lang-main {
+  overflow: hidden;
 }
 
 #nat-lang-search {

@@ -16,15 +16,16 @@
 
 #results {
   overflow: scroll;
-  height: 80%;
+  height: 88%;
   padding: 3px;
-  width: 80%;
+  width: 90%;
   border: 1px solid white;
   margin: 0 auto;
+  border-radius: 5px;
 }
 
 .food-group {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 }
 

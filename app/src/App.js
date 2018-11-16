@@ -89,6 +89,7 @@ class App extends Component {
             log={this.state.log}
             handleViewChange={this.handleViewChange}
             handleFoodSelect={this.handleFoodSelect}
+            onDelete={this.handleDelete}
           />
         )
       case "Targets":
@@ -179,23 +180,46 @@ class App extends Component {
     }
   }
 
-  handleDelete = (id, view1, view2) => {
+  handleDelete = (id, type, view1, view2) => {
     switch (view1) {
       case "Log":
-        const meals = [...this.state.log.meals];
-        const misc = [...this.state.log.misc];
-
-        
-
+        switch (type) {
+          case 'meal':
+            this.setState( (prevState, props) => {
+              const meals = [...prevState.log.meals];
+              meals.splice(id, 1);
+              return {
+                log:{
+                  ...prevState.log,
+                  meals: meals,
+                }
+              }
+            });
+            break;
+          case 'misc':
+            this.setState( (prevState, props) => {
+              const misc = [...prevState.log.misc];
+              misc.splice(id, 1);
+              return {
+                log:{
+                  ...prevState.log,
+                  misc: misc,
+                }
+              }
+            });
+            break;
+        }
         break;
       case "Add Food":
         switch (view2) {
           case "Basket":
-            const basket = [...this.state.basket];
+            this.setState( (prevState, props) => {
+              const basket = [...prevState.basket];
               basket.splice(id, 1);
-              this.setState({
+              return {
                 basket: basket,
-              })
+              }
+            });
             break;
         }
         break;
@@ -221,6 +245,7 @@ class App extends Component {
         searchItems: null,
         badRequest: 0,
       })
+      this.setView("Log");
     } else if (basket.length === 1) {
       this.setState({
         log: {
@@ -234,8 +259,8 @@ class App extends Component {
         searchItems: null,
         badRequest: 0,
       })
+      this.setView("Log");
     }
-    this.setView("Log");
   }
 
   render() {

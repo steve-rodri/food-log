@@ -17,15 +17,14 @@ export default function NatLang(props){
           <h1>Hey {props.userName},</h1>
           <h1>What's for {props.mealType}?</h1>
         </div>
-        <button id="single-item" onClick={() => props.handleViewChange("Single Item")}>Search</button>
       </header>
-      <main>
+      <main id="nat-lang-main">
         <form id="nat-lang-search" onSubmit={props.handleNatLangQuery}>
           <textarea
             name="natLangInput"
             value={props.natLangInput}
             onChange={props.handleNatLangInputChange}
-            placeholder={`Try typing something like...\n\n"I had 1 sweet potato and a cup of black beans" \n\n You could even input a whole recipe...`}
+            placeholder={`Try typing something like..."I had 1 sweet potato with half of an avocado and a cup of black beans" \n\n You could even input a whole recipe...`}
           >
           </textarea>
         </form>
@@ -34,7 +33,11 @@ export default function NatLang(props){
         <button
           onClick={props.handleNatLangQuery}
           className="log-button"
-        >Add</button>
+        >Log</button>
+        <button
+          id="single-item"
+          onClick={() => props.handleViewChange("Single Item")}
+        >Search</button>
       </footer>
     </div>
   )

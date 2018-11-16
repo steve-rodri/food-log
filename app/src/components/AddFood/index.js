@@ -29,7 +29,7 @@ export default class AddFood extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      currentView: "Basket",
+      currentView: "Single Item",
       basketCount: 0
     }
     this.setView = this.setView.bind(this);
