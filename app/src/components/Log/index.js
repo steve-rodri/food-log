@@ -19,13 +19,6 @@ export default class Log extends React.Component {
     }
   }
 
-  // componentWillReceiveProps(newProps){
-  //   this.setState({
-  //     meals: newProps.log.meals,
-  //     misc: newProps.log.misc
-  //   })
-  // }
-
   toggleEdit = () => {
     const toggle = this.state.editMode;
     this.setState({
@@ -58,7 +51,10 @@ export default class Log extends React.Component {
             misc={misc}
             onSelectFood={this.props.handleFoodSelect}
             editMode={this.state.editMode}
-            handleDelete={() => this.props.onDelete(id, "misc", "Log")}
+            handleDelete={(e) => {
+              e.stopPropagation();
+              this.props.onDelete(id, "misc", "Log")
+            }}
           />
         )}
       </div>

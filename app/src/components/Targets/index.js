@@ -1,6 +1,8 @@
 import React from 'react';
 import './style.css';
 
+//props
+
 export default function Targets(){
   return(
     <div className="Page">

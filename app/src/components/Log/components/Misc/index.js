@@ -2,6 +2,8 @@ import React from 'react';
 import Food from '../../../Food';
 import './style.css';
 
+
+// root is Log component
 // props
 
 // misc
@@ -15,10 +17,9 @@ export default function Misc(props){
       {props.misc.map(food =>
         <Food
           food={food}
-          handleFoodSelect={(e) => {
-            e.stopImmediatePropagation();
+          handleFoodSelect={() => 
             props.onSelectFood(food, "Log")
-          }}
+          }
           editMode={props.editMode}
           handleDelete={props.handleDelete}
         />

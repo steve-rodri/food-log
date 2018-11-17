@@ -1,6 +1,8 @@
 import React from 'react';
 import './style.css';
 
+//root is AddFood, used in search and basket components
+//root is Log, used in misc component
 //props
 
 // food

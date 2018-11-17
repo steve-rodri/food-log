@@ -11,7 +11,7 @@ class App extends Component {
     super(props)
     this.state = {
       userName: "",
-      currentView: "Add Food",
+      currentView: "Login",
       natLangInput: '',
       singleItemInput: '',
       natLangResults: [],
@@ -213,13 +213,12 @@ class App extends Component {
       case "Add Food":
         switch (view2) {
           case "Basket":
-            this.setState( (prevState, props) => {
-              const basket = [...prevState.basket];
-              basket.splice(id, 1);
-              return {
-                basket: basket,
-              }
-            });
+          console.log("working in app")
+            const basket = [...this.state.basket];
+            basket.splice(id, 1);
+            this.setState({
+              basket: basket,
+            })
             break;
         }
         break;
@@ -242,6 +241,8 @@ class App extends Component {
           ]
         },
         basket: [],
+        natLangInput: '',
+        singleItemInput:'',
         searchItems: null,
         badRequest: 0,
       })
@@ -256,6 +257,8 @@ class App extends Component {
           ]
         },
         basket: [],
+        natLangInput: '',
+        singleItemInput:'',
         searchItems: null,
         badRequest: 0,
       })

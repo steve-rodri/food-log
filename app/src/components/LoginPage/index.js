@@ -5,7 +5,7 @@ import './style.css';
 export default function LoginPage(props){
   return (
     <div className="Page" id="login-page">
-      <h1>Food Log</h1>
+      <h1>dooFLo</h1>
       <p>...the food log you actually want to use.</p>
       <footer>
         <GoogleLogin

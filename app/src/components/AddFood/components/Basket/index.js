@@ -51,9 +51,8 @@ function renderBasket(props){
             data-id={id}
             addFoodView={props.addFoodView}
             appView={props.appView}
-            handleDelete={(e) => {
-              e.stopPropagation();
-              props.onDelete(id, props.appView, props.addFoodView)
+            handleDelete={() => {
+              props.onDelete(id, null, props.appView, props.addFoodView)
             }}
           />
         )}
