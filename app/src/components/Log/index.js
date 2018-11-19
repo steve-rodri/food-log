@@ -69,10 +69,6 @@ export default class Log extends React.Component {
           onClick={() => this.props.handleViewChange('Add Food')}
           id="add-food-button"
           >Add</button>
-          <button
-            id="targets"
-            onClick={() => this.props.handleViewChange('Targets')}
-          >Targets</button>
         </footer>
       </div>
     )

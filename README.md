@@ -28,6 +28,10 @@
   User can add a food or meal to log.
   User can see breakdown of meal.
 
+## Youtube
+
+  [Video](https://www.youtube.com/watch?v=20h5lwSjWqA&feature=youtu.be)
+
 ## Wireframes
 
   ![Wireframe](./app/src/images/Wireframe.jpg)
