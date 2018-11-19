@@ -3,7 +3,6 @@ import { getNatLangFoodResults, getSingleItemResults } from "./services/API";
 import LoginPage from './components/LoginPage/index.js';
 import AddFood from './components/AddFood/index.js';
 import Log from './components/Log/index.js';
-import Targets from './components/Targets/index.js';
 import './App.css';
 
 class App extends Component {
