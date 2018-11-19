@@ -92,18 +92,6 @@ class App extends Component {
             onDelete={this.handleDelete}
           />
         )
-      case "Targets":
-       return (
-          <Targets
-
-          />
-        )
-      // case "Nutrient Breakdown":
-      //  return (
-      //    <NutrientBreakdown
-      //
-      //    />
-      //  )
       default:
         return (
           <LoginPage
@@ -175,7 +163,6 @@ class App extends Component {
         })
         break;
       case "Log" || "Basket":
-        this.setView("Targets")
         break;
     }
   }

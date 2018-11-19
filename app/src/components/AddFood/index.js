@@ -5,26 +5,6 @@ import SingleItem from './components/SingleItem';
 import moment from 'moment';
 import './style.css';
 
-//props
-
-// userName
-// currentView
-// basket
-// logBasket
-
-// natLangInput
-// handleNatLangInputChange
-// handleNatLangQuery
-
-// singleItemInput
-// handleSingleItemInputChange
-// handleSingleItemQuery
-// searchItems
-// handleFoodSelect
-// handleDelete
-
-// badRequest
-
 export default class AddFood extends React.Component {
   constructor(props){
     super(props)

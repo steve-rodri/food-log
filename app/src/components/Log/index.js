@@ -3,14 +3,6 @@ import Meal from './components/Meal';
 import Misc from './components/Misc';
 import './style.css';
 
-// props
-
-// log
-// handleViewChange
-// handleFoodSelect
-// onDelete
-
-
 export default class Log extends React.Component {
   constructor(props){
     super(props)

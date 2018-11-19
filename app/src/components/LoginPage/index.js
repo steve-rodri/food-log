@@ -5,8 +5,7 @@ import './style.css';
 export default function LoginPage(props){
   return (
     <div className="Page" id="login-page">
-      <h1>dooFLo</h1>
-      <p>...the food log you actually want to use.</p>
+      <h1>Food Log</h1>
       <footer>
         <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}

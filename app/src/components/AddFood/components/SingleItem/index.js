@@ -2,16 +2,6 @@ import React from 'react';
 import Food from '../../../Food';
 import './style.css';
 
-//props
-
-// singleItemInput
-// handleSingleItemInputChange
-// handleSingleItemQuery
-// searchItems
-// onSelectFood
-// logBasket
-// handleViewChange
-
 function listFoods(props, results){
   const commonFoodsArr = [...results.common];
   const brandedFoodsArr = [...results.branded];

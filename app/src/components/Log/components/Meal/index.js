@@ -2,13 +2,6 @@ import React from 'react';
 import Food from '../../../Food';
 import './style.css';
 
-// props
-
-// meal
-// onSelectFood
-// editMode
-// handleDelete
-
 export default function Meal(props){
   return (
     <div className='meal'>
@@ -35,11 +28,3 @@ function renderDeleteButton(props){
 
   )
 }
-
-// {props.meal.map(food =>
-//   <Food
-//     food={food}
-//     handleFoodSelect={() => props.onSelectFood(food, "Log")}
-//     editMode={props.editMode}
-//   />
-// )}

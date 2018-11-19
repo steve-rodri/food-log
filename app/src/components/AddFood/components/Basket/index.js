@@ -2,16 +2,6 @@ import React from 'react';
 import Food from '../../../Food';
 import './style.css';
 
-// props
-
-// basket
-// logBasket
-// addFoodView
-// appView
-// handleViewChange
-// onDelete
-
-
 export default function Basket (props) {
   return (
     <div className="Page" id="basket-page">

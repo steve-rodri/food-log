@@ -1,14 +1,6 @@
 import React from 'react';
 import './style.css';
 
-//props
-// userName
-// mealType
-//
-// natLangInput
-// handleNatLangInputChange
-// handleNatLangQuery
-
 export default function NatLang(props){
   return (
     <div className="Page" id="nat-lang-search-page">
