@@ -2,24 +2,17 @@ import React from 'react';
 import Food from '../../../Food';
 import './style.css';
 
-
-// root is Log component
-// props
-
-// misc
-// onSelectFood
-// editMode
-// handleDelete
-
 export default function Misc(props){
   return (
     <div>
-      {props.misc.map(food =>
+      {props.misc.map((food, id) =>
         <Food
           food={food}
-          handleFoodSelect={() => 
-            props.onSelectFood(food, "Log")
-          }
+          key={id}
+          handleFoodSelect={(e) => {
+            props.onSelectFood(food);
+            console.log("misc food select from log");
+          }}
           editMode={props.editMode}
           handleDelete={props.handleDelete}
         />

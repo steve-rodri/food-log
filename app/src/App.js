@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { getNatLangFoodResults, getSingleItemResults } from "./services/API";
 import LoginPage from './components/LoginPage/index.js';
 import AddFood from './components/AddFood/index.js';
 import Log from './components/Log/index.js';
@@ -10,29 +9,21 @@ class App extends Component {
     super(props)
     this.state = {
       userName: "",
-      currentView: "Login",
-      natLangInput: '',
-      singleItemInput: '',
-      natLangResults: [],
-      singleItemResults: '',
-      searchItems: null,
-      basket: [],
+      currentView: "Add Food",
+      prevView: '',
       log: {
         meals: [],
         misc: []
       },
-      badRequest: 0,
-
     }
   }
 
   responseGoogle = (resp) => {
     if (resp.accessToken) {
       localStorage.setItem('google_access_token',resp.accessToken)
-      // localStorage persists across refreshes
     }
     this.setUserName(resp.profileObj.givenName)
-    this.setView("Add Food");
+    this.setCurrentView("Add Food");
   }
 
   setUserName(user){
@@ -41,14 +32,21 @@ class App extends Component {
     })
   }
 
-  setView = (view) => {
+  setCurrentView = (view) => {
     this.setState({
       currentView: view,
     })
   }
 
-  handleViewChange = (view) => {
-    this.setView(view);
+  setPrevView = (view) => {
+    this.setState({
+      prevView: view,
+    })
+  }
+
+  handleViewChange = (view, from) => {
+    this.setCurrentView(view);
+    this.setPrevView(from);
   }
 
   getView(){
@@ -64,30 +62,22 @@ class App extends Component {
           <AddFood
             userName={this.state.userName}
             currentView={this.state.currentView}
-            basket={this.state.basket}
+
             logBasket={this.logBasket}
 
-            natLangInput={this.state.natLangInput}
-            handleNatLangInputChange={this.handleInputChange}
-            handleNatLangQuery={this.handleNatLangQuery}
-
-            singleItemInput={this.state.singleItemInput}
-            handleSingleItemInputChange={this.handleInputChange}
-            handleSingleItemQuery={this.handleSingleItemQuery}
-            searchItems={this.state.searchItems}
+            handleViewChange={this.handleViewChange}
             handleFoodSelect={this.handleFoodSelect}
             handleDelete={this.handleDelete}
-
-            badRequest={this.state.badRequest}
           />
         )
       case "Log":
         return (
           <Log
-            currentPage={this.state.currentPage}
             log={this.state.log}
+            currentView={this.state.currentView}
+
             handleViewChange={this.handleViewChange}
-            handleFoodSelect={this.handleFoodSelect}
+            handleSelect={this.handleSelect}
             onDelete={this.handleDelete}
           />
         )
@@ -101,155 +91,89 @@ class App extends Component {
     }
   }
 
-  handleInputChange = (e) => {
-    const name = e.target.name
-    const value = e.target.value
+  handleSelect = (food, type, view) => {
+
     this.setState({
-      [name]: value,
-    })
-  }
+      selection: food,
+    });
 
-  handleNatLangQuery = async(e) => {
-    e.preventDefault();
-    const query = this.state.natLangInput;
-    try {
-      const resp = await getNatLangFoodResults(query);
-      this.setState({
-        basket: resp,
-        natLangQueryInput: ''
-      })
-      this.logBasket();
-
-    } catch (e) {
-
-      alert("Something might be wrong with your text, check for typos. If that's good, try again. If still having issues, try a single item search.")
-
-      this.setState({
-        badRequest: this.state.badRequest + 1
-      })
-
-    }
-  }
-
-  handleSingleItemQuery = async(e) => {
-    e.preventDefault();
-    const query = this.state.singleItemInput;
-    try {
-
-      const resp = await getSingleItemResults(query);
-      this.setState({
-        searchItems: resp,
-        singleItemInputInput: ''
-      })
-
-    } catch (e) {
-      this.setState({
-        badRequest: this.state.badRequest + 1
-      })
-
-    }
-  }
-
-  handleFoodSelect = (food, view) => {
-    switch (view) {
-      case "Add Food":
-        const basket = this.state.basket;
-        this.setState({
-          basket: [
-            ...basket,
-            food
-          ]
-        })
+    switch (type) {
+      case "Misc":
+        console.log("set View to Targets")
+        console.log("set prev View to Log")
         break;
-      case "Log" || "Basket":
+      case "Meal":
+        console.log("set View to Expand Meal")
+        console.log("set prev View to Log")
+        break;
+      default:
         break;
     }
   }
 
-  handleDelete = (id, type, view1, view2) => {
-    switch (view1) {
-      case "Log":
-        switch (type) {
-          case 'meal':
-            this.setState( (prevState, props) => {
-              const meals = [...prevState.log.meals];
-              meals.splice(id, 1);
-              return {
-                log:{
-                  ...prevState.log,
-                  meals: meals,
-                }
-              }
-            });
-            break;
-          case 'misc':
-            this.setState( (prevState, props) => {
-              const misc = [...prevState.log.misc];
-              misc.splice(id, 1);
-              return {
-                log:{
-                  ...prevState.log,
-                  misc: misc,
-                }
-              }
-            });
-            break;
-        }
+  handleDelete = (id, type) => {
+    switch (type) {
+      case 'meal':
+        this.setState( (prevState, props) => {
+          const meals = [...prevState.log.meals];
+          meals.splice(id, 1);
+          return {
+            log:{
+              ...prevState.log,
+              meals: meals,
+            }
+          }
+        });
         break;
-      case "Add Food":
-        switch (view2) {
-          case "Basket":
-          console.log("working in app")
-            const basket = [...this.state.basket];
-            basket.splice(id, 1);
-            this.setState({
-              basket: basket,
-            })
-            break;
-        }
+      case 'misc':
+        this.setState( (prevState, props) => {
+          const misc = [...prevState.log.misc];
+          misc.splice(id, 1);
+          return {
+            log:{
+              ...prevState.log,
+              misc: misc,
+            }
+          }
+        });
+        break;
+      default:
         break;
     }
   }
 
-  logBasket = () => {
+  logBasket = (basket) => {
     const log = this.state.log;
     const meals = this.state.log.meals;
     const misc = this.state.log.misc;
-    const basket = this.state.basket;
 
-    if (basket.length > 1) {
-      this.setState({
-        log: {
-          ...log,
-          meals: [
-            ...meals,
-            [...basket],
-          ]
-        },
-        basket: [],
-        natLangInput: '',
-        singleItemInput:'',
-        searchItems: null,
-        badRequest: 0,
-      })
-      this.setView("Log");
-    } else if (basket.length === 1) {
-      this.setState({
-        log: {
-          ...log,
-          misc: [
-            ...misc,
-            [...basket],
-          ]
-        },
-        basket: [],
-        natLangInput: '',
-        singleItemInput:'',
-        searchItems: null,
-        badRequest: 0,
-      })
-      this.setView("Log");
-    }
+    if (basket.length !== 0) {
+
+      if (basket.length > 1) {
+        this.setState({
+          log: {
+            ...log,
+            meals: [
+              ...meals,
+              [...basket],
+            ]
+          },
+        })
+
+      } else if (basket.length === 1) {
+        this.setState({
+          log: {
+            ...log,
+            misc: [
+              ...misc,
+              [...basket],
+            ]
+          },
+        });
+      }
+
+      this.setCurrentView("Log");
+    }  
   }
 
   render() {

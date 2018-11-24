@@ -1,4 +1,5 @@
 import React from 'react';
+import { getNatLangFoodResults, getSingleItemResults } from "./services/API";
 import Basket from './components/Basket';
 import NatLang from './components/NatLang';
 import SingleItem from './components/SingleItem';
@@ -10,15 +11,27 @@ export default class AddFood extends React.Component {
     super(props)
     this.state = {
       currentView: "Nat Lang",
-      basketCount: 0
+      natLangInput: '',
+      singleItemInput: '',
+      natLangResults: [],
+      singleItemResults: '',
+      searchItems: null,
+      basket: [],
+      basketCount: 0,
+      badRequest: 0,
     }
-    this.setView = this.setView.bind(this);
   }
 
-  setView(view){
+  setView = (view) => {
     this.setState({
       currentView: view
     })
+  }
+
+  setAppView = (view) => {
+
+    this.props.handleViewChange(view)
+
   }
 
   getView(){
@@ -26,28 +39,34 @@ export default class AddFood extends React.Component {
       case "Basket":
         return (
           <Basket
-            addFoodView={this.state.currentView}
             appView={this.props.currentView}
-            basket={this.props.basket}
+            addFoodView={this.state.currentView}
+
+            basket={this.state.basket}
             basketCount={this.state.basketCount}
-            logBasket={this.props.logBasket}
+            logBasket={this.logBasket}
+
             handleViewChange={this.setView}
-            onDelete={this.props.handleDelete}
+            onDelete={this.handleDeleteBasketItem}
+            onSelect={this.handleSelectBasketItem}
           />
         )
       case "Single Item":
         return (
           <SingleItem
-            addFoodView={this.state.currentView}
             appView={this.props.currentView}
-            basket={this.props.basket}
-            logBasket={this.props.logBasket}
-            singleItemInput={this.props.singleItemQueryInput}
-            handleSingleItemInputChange={this.props.handleSingleItemInputChange}
-            handleSingleItemQuery={this.props.handleSingleItemQuery}
-            searchItems={this.props.searchItems}
-            onSelectFood={this.props.handleFoodSelect}
+            addFoodView={this.state.currentView}
+
+            basket={this.state.basket}
+            logBasket={this.logBasket}
+
+            singleItemInput={this.state.singleItemQueryInput}
+            handleSingleItemQuery={this.handleSingleItemQuery}
+            handleSingleItemInputChange={this.handleInputChange}
+            searchItems={this.state.searchItems}
+
             handleViewChange={this.setView}
+            onSelectFood={this.handleSelectFromSingleSearch}
           />
         )
       case "Nat Lang":
@@ -56,13 +75,107 @@ export default class AddFood extends React.Component {
             userName={this.props.userName}
             mealType={this.getMealTypebyTime()}
             handleViewChange={this.setView}
-            natLangInput={this.props.natLangInput}
-            handleNatLangInputChange={this.props.handleNatLangInputChange}
-            handleNatLangQuery={this.props.handleNatLangQuery}
+
+            natLangInput={this.state.natLangInput}
+            handleNatLangQuery={this.handleNatLangQuery}
+            handleNatLangInputChange={this.handleInputChange}
           />
         )
+      default:
+        return (
+          <NatLang
+            userName={this.props.userName}
+            mealType={this.getMealTypebyTime()}
+            handleViewChange={this.setView}
+
+            natLangInput={this.state.natLangInput}
+            handleNatLangQuery={this.handleNatLangQuery}
+            handleNatLangInputChange={this.handleInputChange}
+          />
+        )
+    }
+  }
+
+  handleDeleteBasketItem = (id) => {
+    const basket = [...this.state.basket];
+    basket.splice(id, 1);
+    this.setState({
+      basket: basket,
+    })
+  }
+
+  handleSelectBasketItem = (food, view) => {
+    console.log('basketItem Selected')
+  }
+
+  handleSelectFromSingleSearch = (food) => {
+    const basket = this.state.basket;
+    this.setState({
+      basket: [
+        ...basket,
+        food
+      ]
+    })
+  }
+
+  handleInputChange = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+    this.setState({
+      [name]: value,
+    })
+  }
+
+  handleNatLangQuery = async(e) => {
+    e.preventDefault();
+    const query = this.state.natLangInput;
+    try {
+      const resp = await getNatLangFoodResults(query);
+      this.setState({
+        basket: resp,
+        natLangQueryInput: ''
+      })
+      this.logBasket();
+
+    } catch (e) {
+
+      alert("Something might be wrong with your text, check for typos. If that's good, try again. If still having issues, try a single item search.")
+
+      this.setState({
+        badRequest: this.state.badRequest + 1
+      })
 
     }
+  }
+
+  handleSingleItemQuery = async(e) => {
+    e.preventDefault();
+    const query = this.state.singleItemInput;
+    try {
+
+      const resp = await getSingleItemResults(query);
+      this.setState({
+        searchItems: resp,
+        singleItemInputInput: ''
+      })
+
+    } catch (e) {
+      this.setState({
+        badRequest: this.state.badRequest + 1
+      })
+
+    }
+  }
+
+  logBasket = () => {
+    this.props.logBasket(this.state.basket);
+    this.setState({
+        basket: [],
+        natLangInput: '',
+        singleItemInput:'',
+        searchItems: null,
+        badRequest: 0,
+    })
   }
 
   getMealTypebyTime(){

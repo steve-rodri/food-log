@@ -2,41 +2,6 @@ import React from 'react';
 import Food from '../../../Food';
 import './style.css';
 
-function listFoods(props, results){
-  const commonFoodsArr = [...results.common];
-  const brandedFoodsArr = [...results.branded];
-
-  const commonFoods = commonFoodsArr.sort((x,y) => {
-    return x.food_name.length - y.food_name.length
-  })
-  const brandedFoods = brandedFoodsArr.sort( (x,y) => {
-    return x.food_name.length - y.food_name.length
-  })
-
-  return (
-    <div id="results">
-      <div className="food-group">
-        {commonFoods.map( (food, id) =>
-          <Food
-            food={food}
-            handleFoodSelect={() => props.onSelectFood(food, "Add Food")}
-            key={id}
-          />
-        )}
-      </div>
-      <div className="food-group">
-        {brandedFoods.map( (food, id) =>
-          <Food
-            food={food}
-            handleFoodSelect={() => props.onSelectFood(food, "Add Food")}
-            key={id}
-          />
-        )}
-      </div>
-    </div>
-  )
-}
-
 export default function SingleItem(props){
   const searchResults = props.searchItems;
   return (
@@ -75,6 +40,46 @@ export default function SingleItem(props){
           className="log-button"
         >Log</button>
       </footer>
+    </div>
+  )
+}
+
+function listFoods(props, results){
+  const commonFoodsArr = [...results.common];
+  const brandedFoodsArr = [...results.branded];
+
+  const commonFoods = commonFoodsArr.sort((x,y) => {
+    return x.food_name.length - y.food_name.length
+  })
+  const brandedFoods = brandedFoodsArr.sort( (x,y) => {
+    return x.food_name.length - y.food_name.length
+  })
+
+  return (
+    <div id="results">
+
+      { /* common foods */ }
+      <div className="food-group">
+        {commonFoods.map( (food, id) =>
+          <Food
+            food={food}
+            handleFoodSelect={() => props.onSelectFood(food)}
+            key={id}
+          />
+        )}
+      </div>
+
+      { /*branded foods */ }
+      <div className="food-group">
+        {brandedFoods.map( (food, id) =>
+          <Food
+            food={food}
+            handleFoodSelect={() => props.onSelectFood(food)}
+            key={id}
+          />
+        )}
+      </div>
+
     </div>
   )
 }

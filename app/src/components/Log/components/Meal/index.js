@@ -4,7 +4,7 @@ import './style.css';
 
 export default function Meal(props){
   return (
-    <div className='meal'>
+    <div className='meal' onClick={props.handleMealSelect}>
       <div className='meal-image'>
       </div>
       <div className="ingredients">
