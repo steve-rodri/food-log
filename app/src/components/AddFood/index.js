@@ -3,6 +3,7 @@ import { getNatLangFoodResults, getSingleItemResults } from "./services/API";
 import Basket from './components/Basket';
 import NatLang from './components/NatLang';
 import SingleItem from './components/SingleItem';
+import AddMealTitle from './components/AddMealTitle';
 import moment from 'moment';
 import './style.css';
 
@@ -13,11 +14,11 @@ export default class AddFood extends React.Component {
       currentView: "Nat Lang",
       natLangInput: '',
       singleItemInput: '',
-      natLangResults: [],
-      singleItemResults: '',
-      searchItems: null,
-      basket: [],
-      basketCount: 0,
+      searchResults: null,
+      basket: {
+        mealTitleInput:'',
+        contents: [],
+      },
       badRequest: 0,
     }
   }
@@ -25,13 +26,11 @@ export default class AddFood extends React.Component {
   setView = (view) => {
     this.setState({
       currentView: view
-    })
+    });
   }
 
   setAppView = (view) => {
-
-    this.props.handleViewChange(view)
-
+    this.props.handleViewChange(view);
   }
 
   getView(){
@@ -43,8 +42,8 @@ export default class AddFood extends React.Component {
             addFoodView={this.state.currentView}
 
             basket={this.state.basket}
-            basketCount={this.state.basketCount}
             logBasket={this.logBasket}
+            emptyBasket={this.emptyBasket}
 
             handleViewChange={this.setView}
             onDelete={this.handleDeleteBasketItem}
@@ -58,12 +57,12 @@ export default class AddFood extends React.Component {
             addFoodView={this.state.currentView}
 
             basket={this.state.basket}
-            logBasket={this.logBasket}
+            handleLogBasket={this.handleLogBasket}
 
-            singleItemInput={this.state.singleItemQueryInput}
+            singleItemInput={this.state.singleItemInput}
             handleSingleItemQuery={this.handleSingleItemQuery}
             handleSingleItemInputChange={this.handleInputChange}
-            searchItems={this.state.searchItems}
+            searchResults={this.state.searchResults}
 
             handleViewChange={this.setView}
             onSelectFood={this.handleSelectFromSingleSearch}
@@ -79,6 +78,16 @@ export default class AddFood extends React.Component {
             natLangInput={this.state.natLangInput}
             handleNatLangQuery={this.handleNatLangQuery}
             handleNatLangInputChange={this.handleInputChange}
+          />
+        )
+      case "Meal Title":
+        return (
+          <AddMealTitle
+            mealTitleInput={this.state.basket.mealTitleInput}
+            handleMealTitleInputChange={this.handleMealTitleInputChange}
+
+            handleSkipClick={this.handleSkipMealTitle}
+            handleAddClick={this.addMealTitle}
           />
         )
       default:
@@ -97,10 +106,14 @@ export default class AddFood extends React.Component {
   }
 
   handleDeleteBasketItem = (id) => {
-    const basket = [...this.state.basket];
-    basket.splice(id, 1);
+    const basket = this.state.basket
+    const basketContents = [...this.state.basket.contents];
+    basketContents.splice(id, 1);
     this.setState({
-      basket: basket,
+      basket: {
+        ...basket,
+        contents: basketContents
+      },
     })
   }
 
@@ -110,32 +123,51 @@ export default class AddFood extends React.Component {
 
   handleSelectFromSingleSearch = (food) => {
     const basket = this.state.basket;
+    const basketContents = this.state.basket.contents;
     this.setState({
-      basket: [
+      basket: {
         ...basket,
-        food
-      ]
+        contents: [...basketContents, food],
+      },
     })
   }
 
   handleInputChange = (e) => {
-    const name = e.target.name
-    const value = e.target.value
+    const name = e.target.name;
+    const value = e.target.value;
     this.setState({
       [name]: value,
     })
   }
 
+  handleMealTitleInputChange = (e) => {
+    const basket = this.state.basket;
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({
+      basket: {
+        ...basket,
+        [name]: value,
+      }
+    })
+  }
+
   handleNatLangQuery = async(e) => {
     e.preventDefault();
+    const basket = this.state.basket;
     const query = this.state.natLangInput;
     try {
+
       const resp = await getNatLangFoodResults(query);
       this.setState({
-        basket: resp,
-        natLangQueryInput: ''
-      })
-      this.logBasket();
+        basket: {
+          ...basket,
+          contents: resp,
+        },
+        natLangQueryInput: '',
+      });
+
+      this.handleLogBasket();
 
     } catch (e) {
 
@@ -152,29 +184,62 @@ export default class AddFood extends React.Component {
     e.preventDefault();
     const query = this.state.singleItemInput;
     try {
-
       const resp = await getSingleItemResults(query);
       this.setState({
-        searchItems: resp,
-        singleItemInputInput: ''
+        searchResults: resp,
+        singleItemInput: ''
       })
 
     } catch (e) {
       this.setState({
         badRequest: this.state.badRequest + 1
       })
-
     }
   }
 
-  logBasket = () => {
-    this.props.logBasket(this.state.basket);
+  handleSkipMealTitle = () => {
+    this.logBasket(false);
+  }
+
+  addMealTitle = (e) => {
+    e.preventDefault();
+    this.logBasket(true);
+  }
+
+  handleLogBasket = () => {
+    const basket = this.state.basket
+    if (basket.contents.length === 1) {
+      this.logBasket();
+    } else if (basket.contents.length > 1) {
+      this.setView("Meal Title");
+    }
+  }
+
+  logBasket = (addTitle) => {
+    //addTitle is a boolean
+    const basket = this.state.basket;
+    this.props.logBasket(basket, addTitle);
+
+    //reset state
     this.setState({
-        basket: [],
-        natLangInput: '',
-        singleItemInput:'',
-        searchItems: null,
-        badRequest: 0,
+      basket: {
+        mealTitleInput:'',
+        contents: [],
+      },
+      natLangInput: '',
+      singleItemInput:'',
+      mealTitleInput:'',
+      searchResults: null,
+      badRequest: 0,
+    })
+  }
+
+  emptyBasket = () => {
+    this.setState({
+      basket: {
+        mealTitleInput:'',
+        contents: []
+      },
     })
   }
 

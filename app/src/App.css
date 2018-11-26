@@ -95,6 +95,11 @@ textarea {
   font-size: 20px;
   padding: 15px;
   border-radius: 14px;
+  resize: none;
+}
+
+textarea:focus {
+  outline: 0;
 }
 
 footer {

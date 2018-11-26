@@ -26,7 +26,7 @@ class App extends Component {
     this.setCurrentView("Add Food");
   }
 
-  setUserName(user){
+  setUserName(user) {
     this.setState({
       userName: user
     })
@@ -142,38 +142,40 @@ class App extends Component {
     }
   }
 
-  logBasket = (basket) => {
+  logBasket = (basket, addTitle) => {
+    //addTitle is a boolean
+    const tempBasket = {...basket};
     const log = this.state.log;
     const meals = this.state.log.meals;
     const misc = this.state.log.misc;
-
-    if (basket.length !== 0) {
-
-      if (basket.length > 1) {
+    if (basket.contents.length !== 0) {
+      if (basket.contents.length > 1) {
+        debugger;
+        if (!addTitle) {
+          tempBasket.mealTitleInput = '';
+        }
         this.setState({
           log: {
             ...log,
             meals: [
               ...meals,
-              [...basket],
+              tempBasket,
             ]
           },
         })
-
-      } else if (basket.length === 1) {
+      } else if (basket.contents.length === 1) {
         this.setState({
           log: {
             ...log,
             misc: [
               ...misc,
-              [...basket],
+              ...basket.contents,
             ]
           },
         });
       }
-
-      this.setCurrentView("Log");
-    }  
+      this.setCurrentView('Log');
+    }
   }
 
   render() {

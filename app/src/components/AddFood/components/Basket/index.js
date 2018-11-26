@@ -7,9 +7,10 @@ export default function Basket (props) {
     <div className="Page" id="basket-page">
       <header>
         <h1 id="title">Basket</h1>
+        {props.basket.contents.length > 0 && <button id="empty-basket-button" onClick={props.emptyBasket}>Delete All</button>}
       </header>
       <main>
-        {props.basket.length > 0 && renderBasket(props)}
+        {props.basket.contents.length > 0 && renderBasket(props)}
       </main>
       <footer>
 
@@ -34,7 +35,7 @@ function renderBasket(props){
   return(
     <div>
       <div className="meals">
-        {props.basket.map( (food, id) =>
+        {props.basket.contents.map( (food, id) =>
           <Food
             food={food}
             key={id}

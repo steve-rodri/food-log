@@ -1,14 +1,13 @@
 import React from 'react';
-import Food from '../../../Food';
 import './style.css';
 
 export default function Meal(props){
   return (
     <div className='meal' onClick={props.handleMealSelect}>
-      <div className='meal-image'>
-      </div>
+      <div className='meal-image'></div>
+      <h4 className='meal-title'>{props.meal.mealTitleInput}</h4>
       <div className="ingredients">
-        {props.meal.map( (food, id) =>
+        {props.meal.contents.map( (food, id) =>
           <h6 key={id} className="ingredient" >{food.serving_qty} {food.serving_unit} {food.food_name}</h6>
         )}
       </div>
@@ -16,7 +15,6 @@ export default function Meal(props){
     </div>
   )
 }
-
 
 function renderDeleteButton(props){
   return(

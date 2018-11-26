@@ -1,6 +1,6 @@
 import React from 'react';
 import Meal from './components/Meal';
-import Misc from './components/Misc';
+import Food from '../Food';
 import './style.css';
 
 export default class Log extends React.Component {
@@ -49,11 +49,14 @@ export default class Log extends React.Component {
   renderMisc(){
     return (
       <div className="misc-items">
-        {this.props.log.misc.map( (misc, id) =>
-          <Misc
+        {this.props.log.misc.map( (food, id) =>
+          <Food
+            food={food}
             key={id}
-            misc={misc}
-            onSelectFood={this.handleMiscSelect}
+            onSelectFood={(e) => {
+              this.handleMiscSelect(food);
+              console.log("misc food select from log")
+            }}
             editMode={this.state.editMode}
             handleDelete={(e) => {
               e.stopPropagation();

@@ -1,0 +1,43 @@
+#add-meal-title-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-meal-title-form {
+  border: 5px solid white;
+  height: 200px;
+  padding: 10px;
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: .5fr auto .5fr;
+  grid-template-areas:
+  "top top"
+  "middle middle"
+  "bottomLeft bottomRight"
+  ;
+}
+
+#form-title {
+  grid-area: top;
+  justify-self: center;
+  margin: 0;
+}
+
+#meal-title-input {
+  grid-area: middle;
+  justify-self: center;
+  width: 85%;
+}
+
+#skip-button {
+  grid-area: bottomLeft;
+  justify-self: right;
+}
+
+#add-button {
+  grid-area: bottomRight;
+  justify-self: left;
+  border-color: rgb(0,255,100);
+  color: rgb(0,255,100);
+}

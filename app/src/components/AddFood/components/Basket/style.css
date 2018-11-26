@@ -2,3 +2,11 @@
   margin-left: 5px;
   padding: 5px;
 }
+
+#empty-basket-button {
+  grid-area: right;
+  justify-self: right;
+  padding: 0;
+  color: rgba(255, 25, 25, 1);
+  border-color: rgba(255, 25, 25, 1);
+}

@@ -3,7 +3,7 @@ import Food from '../../../Food';
 import './style.css';
 
 export default function SingleItem(props){
-  const searchResults = props.searchItems;
+  const searchResults = props.searchResults;
   return (
     <div className="Page" id="single-item-search-page">
       <header>
@@ -19,6 +19,7 @@ export default function SingleItem(props){
         <form id="single-item-search" onSubmit={props.handleSingleItemQuery}>
           <input
             name="singleItemInput"
+            id="search-input"
             value={props.singleItemInput}
             onChange={props.handleSingleItemInputChange}
             placeholder="..."
@@ -33,10 +34,10 @@ export default function SingleItem(props){
           id="basket"
           onClick={() => props.handleViewChange('Basket')}
         >
-          basket: {props.basket.length}
+          basket: {props.basket.contents.length}
         </button>
         <button
-          onClick={props.logBasket}
+          onClick={props.handleLogBasket}
           className="log-button"
         >Log</button>
       </footer>

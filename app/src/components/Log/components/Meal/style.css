@@ -3,7 +3,7 @@
   grid-template-columns: 20% 50% 30%;
   grid-template-areas:
   "left middle right";
-  width: 95%;
+  width: 98%;
   margin: 3px auto;
   border: 2px solid black;
   background-color: white;
@@ -16,6 +16,14 @@
 
 .meal:hover {
   cursor: pointer;
+}
+
+.meal-title {
+  color: black;
+  z-index: 1;
+  grid-area: middle;
+  justify-self: left;
+  align-self: center;
 }
 
 .meal-image {
@@ -31,7 +39,7 @@
 .ingredients {
   grid-area: middle;
   justify-self: left;
-  algin-self: center;
+  align-self: center;
   max-height: 150px;
   overflow: scroll;
 }

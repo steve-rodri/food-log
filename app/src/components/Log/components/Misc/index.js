@@ -3,6 +3,8 @@ import Food from '../../../Food';
 import './style.css';
 
 export default function Misc(props){
+  console.log(props.misc);
+
   return (
     <div>
       {props.misc.map((food, id) =>
@@ -18,15 +20,5 @@ export default function Misc(props){
         />
       )}
     </div>
-  )
-}
-
-function renderDeleteButton(props){
-  return(
-    <button
-      className="delete-button"
-      onClick={props.handleDelete}
-    >Delete
-    </button>
   )
 }
