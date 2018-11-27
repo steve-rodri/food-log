@@ -10,20 +10,12 @@
   color: black;
   border-radius: 5px;
   min-height: 60px;
-  max-height: 150px;
+  max-height: 175px;
   overflow: scroll;
 }
 
 .meal:hover {
   cursor: pointer;
-}
-
-.meal-title {
-  color: black;
-  z-index: 1;
-  grid-area: middle;
-  justify-self: left;
-  align-self: center;
 }
 
 .meal-image {
@@ -36,11 +28,28 @@
   align-self: center;
 }
 
-.ingredients {
+.meal-contents{
   grid-area: middle;
+  display:flex;
+  flex-direction: column;
+  height: 100%;
+}
+.meal-title {
+  font-size: 15px;
+  color: black;
+  justify-self: center;
+  align-self: center;
+  margin: 0;
+  box-shadow: 0 1px 2px 0 #777777;
+  border-radius: 3px;
+  padding: 2px;
+}
+
+.ingredients {
   justify-self: left;
   align-self: center;
   max-height: 150px;
+  padding-left: 2px;
   overflow: scroll;
 }
 

@@ -6,14 +6,26 @@ export default function AddMealTitle (props){
   return (
     <div className="Page" id="add-meal-title-page">
       <form className="add-meal-title-form" onSubmit={(e) => props.handleAddClick(e)}>
-        <h2 id="form-title" >Give This Meal A Name:</h2>
 
-        <input
-          name="mealTitleInput"
-          id="meal-title-input"
-          value= {props.mealTitleInput}
-          onChange={props.handleMealTitleInputChange}
-        />
+        <h2 className="form-title" id="photo-title-prompt">Take a Photo:</h2>
+
+          <input
+            id="photo-upload"
+            type="file"
+            name='mealPhoto'
+            src={props.mealPhoto}
+            onChange={props.handleMealPhotoChange}
+          ></input>
+
+        <h2 className="form-title" id='meal-title-prompt'>Give This Meal A Name:</h2>
+
+          <input
+            name="mealTitleInput"
+            id="meal-title-input"
+            value= {props.mealTitleInput}
+            onChange={props.handleMealTitleInputChange}
+          />
+
         <button
           id="skip-button"
           onClick={props.handleSkipClick}

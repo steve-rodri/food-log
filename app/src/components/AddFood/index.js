@@ -16,6 +16,7 @@ export default class AddFood extends React.Component {
       singleItemInput: '',
       searchResults: null,
       basket: {
+        mealPhoto: null,
         mealTitleInput:'',
         contents: [],
       },
@@ -84,7 +85,10 @@ export default class AddFood extends React.Component {
         return (
           <AddMealTitle
             mealTitleInput={this.state.basket.mealTitleInput}
-            handleMealTitleInputChange={this.handleMealTitleInputChange}
+            handleMealTitleInputChange={this.handleBasketInputChange}
+
+            mealPhoto= {this.state.basket.mealPhoto}
+            handleMealPhotoChange= {this.handleBasketInputChange}
 
             handleSkipClick={this.handleSkipMealTitle}
             handleAddClick={this.addMealTitle}
@@ -140,7 +144,7 @@ export default class AddFood extends React.Component {
     })
   }
 
-  handleMealTitleInputChange = (e) => {
+  handleBasketInputChange = (e) => {
     const basket = this.state.basket;
     const name = e.target.name;
     const value = e.target.value;
