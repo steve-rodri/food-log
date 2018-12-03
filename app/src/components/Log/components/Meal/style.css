@@ -60,10 +60,67 @@
   align-self: center;
 }
 
+.metrics {
+  grid-area: right;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 2fr;
+  grid-template-areas:
+  'top'
+  'bottom'
+  ;
+}
+
 .total-calories {
+  grid-area: top;
   justify-self: center;
-  align-self: center;
+  align-self: end;
   font-size: 20px;
   color: green;
   font-weight: bold;
+}
+
+.macronutrients {
+  grid-area: bottom;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+  'topLeft topRight'
+  'middleLeft middleRight'
+  'bottomLeft bottomRight'
+  ;
+  justify-self: center;
+  align-self: start;
+  color: black;
+}
+
+.protein-label {
+  grid-area: bottomLeft;
+  justify-self: center;
+}
+
+.carbs-label {
+  grid-area: topLeft;
+  justify-self: center;
+}
+
+.fat-label {
+  grid-area: middleLeft;
+  justify-self: center;
+}
+
+.protein-value {
+  grid-area: bottomRight;
+  justify-self: left;
+}
+
+.carbs-value {
+  grid-area: topRight;
+  justify-self: left;
+}
+
+.fat-value {
+  grid-area: middleRight;
+  justify-self: left;
 }
