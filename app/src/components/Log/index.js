@@ -68,12 +68,20 @@ export default class Log extends React.Component {
     )
   }
 
+  logHeaderStyle(){
+    if (this.state.editMode) {
+      return {
+        backgroundColor: 'blue'
+      }
+    }
+  }
+
   render(){
     return (
       <div className="Page" id="log-page">
-        <header>
+        <header id="log-header" style={this.logHeaderStyle()}>
           <h1 id="title">Log</h1>
-          <button className="edit-button" onClick={this.toggleEdit}>Edit</button>
+          <button className="edit-button" onClick={this.toggleEdit}>{this.state.editMode? 'Done' : 'Edit'}</button>
         </header>
         <main>
           {this.props.log.meals.length > 0 && this.renderMeals()}

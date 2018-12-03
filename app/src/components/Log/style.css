@@ -28,5 +28,7 @@
 .edit-button {
   grid-area: right;
   justify-self: right;
+  text-align: center;
   width: 75px;
+  padding: 10px 12px;
 }
