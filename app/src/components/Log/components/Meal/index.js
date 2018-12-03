@@ -13,7 +13,21 @@ export default function Meal(props){
             )}
           </div>
         </div>
+
       {props.editMode && renderDeleteButton(props)}
+      {!props.editMode && renderMetrics(props)}
+    </div>
+  )
+}
+
+function renderMetrics(props) {
+  const { meal:{ contents } } = props
+  const nutrientValues = contents.map( food => food.nf_calories);
+  const sum = nutrientValues.reduce((a, b) => a + b);
+  const totalCalories = Math.round(sum, 1);
+  return (
+    <div className='total-calories'>
+      {totalCalories}
     </div>
   )
 }

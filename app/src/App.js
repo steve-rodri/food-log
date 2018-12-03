@@ -150,7 +150,6 @@ class App extends Component {
     const misc = this.state.log.misc;
     if (basket.contents.length !== 0) {
       if (basket.contents.length > 1) {
-        debugger;
         if (!addTitle) {
           tempBasket.mealTitleInput = '';
         }

@@ -7,7 +7,7 @@ export default function AddMealTitle (props){
     <div className="Page" id="add-meal-title-page">
       <form className="add-meal-title-form" onSubmit={(e) => props.handleAddClick(e)}>
 
-        <h2 className="form-title" id="photo-title-prompt">Take a Photo:</h2>
+        {/* <h2 className="form-title" id="photo-title-prompt">Take a Photo:</h2>
 
           <input
             id="photo-upload"
@@ -15,7 +15,7 @@ export default function AddMealTitle (props){
             name='mealPhoto'
             src={props.mealPhoto}
             onChange={props.handleMealPhotoChange}
-          ></input>
+          ></input> */}
 
         <h2 className="form-title" id='meal-title-prompt'>Give This Meal A Name:</h2>
 
