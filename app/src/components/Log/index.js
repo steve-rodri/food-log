@@ -53,6 +53,7 @@ export default class Log extends React.Component {
           <Food
             food={food}
             key={id}
+            appView={this.props.currentView}
             onSelectFood={(e) => {
               this.handleMiscSelect(food);
               console.log("misc food select from log")
@@ -68,7 +69,7 @@ export default class Log extends React.Component {
     )
   }
 
-  logHeaderStyle(){
+  editModeStyle(){
     if (this.state.editMode) {
       return {
         backgroundColor: 'blue'
@@ -79,7 +80,7 @@ export default class Log extends React.Component {
   render(){
     return (
       <div className="Page" id="log-page">
-        <header id="log-header" style={this.logHeaderStyle()}>
+        <header id="log-header" style={this.editModeStyle()}>
           <h1 id="title">Log</h1>
           <button className="edit-button" onClick={this.toggleEdit}>{this.state.editMode? 'Done' : 'Edit'}</button>
         </header>
@@ -87,11 +88,11 @@ export default class Log extends React.Component {
           {this.props.log.meals.length > 0 && this.renderMeals()}
           {this.props.log.misc.length > 0 && this.renderMisc()}
         </main>
-        <footer>
-          <button
+        <footer style={this.editModeStyle()}>
+          {!this.state.editMode && <button
           onClick={() => this.props.handleViewChange('Add Food')}
           id="add-food-button"
-          >Add</button>
+          >Add</button>}
         </footer>
       </div>
     )

@@ -66,6 +66,7 @@ function listFoods(props, results){
             food={food}
             handleFoodSelect={() => props.onSelectFood(food)}
             key={id}
+            appView={props.appView}
           />
         )}
       </div>
@@ -77,6 +78,7 @@ function listFoods(props, results){
             food={food}
             handleFoodSelect={() => props.onSelectFood(food)}
             key={id}
+            appView={props.appView}
           />
         )}
       </div>

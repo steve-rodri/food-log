@@ -5,23 +5,36 @@ import "./style.css";
 
 export default function Food(props) {
   const food = props.food;
-
   return (
     <div className="food" onClick={props.handleFoodSelect}>
       <img className="food-image" src={food.photo.thumb} alt={food.food_name} />
       <h6 className="food-title">
         {food.serving_qty} {food.serving_unit} {food.food_name}
       </h6>
-      {props.appView === "Add Food" &&
-        props.addFoodView === "Basket" &&
-        renderDeleteButton(props)}
-      {props.editMode && renderDeleteButton(props)}
-      {!props.editMode && <Macros food={props.food} />}
+      {renderDeleteButton(props)}
+      {renderMacros(props)}
     </div>
   );
 }
 
-function renderDeleteButton(props) {
+function renderDeleteButton(props){
+  if (props.addFoodView === "Basket" &&  props.appView === "Add Food") {
+    return deleteButton(props)
+  } else if (props.editMode) {
+    return deleteButton(props)
+  }
+}
+
+function renderMacros(props){
+  const food = props.food;
+  if (!props.editMode) {
+    if (!(props.appView === 'Add Food')) {
+      return <Macros food={food}/>
+    }
+  }
+}
+
+function deleteButton(props) {
   return (
     <button className="delete-button" onClick={props.handleDelete}>
       Delete
