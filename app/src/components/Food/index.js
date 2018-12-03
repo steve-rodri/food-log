@@ -1,6 +1,5 @@
 import React from "react";
 import Macros from '../Macros/index.js'
-import data from "../../NutrientConversion";
 import "./style.css";
 
 export default function Food(props) {
