@@ -16,8 +16,8 @@ export default class AddFood extends React.Component {
       singleItemInput: '',
       searchResults: null,
       basket: {
-        mealPhoto: null,
-        mealTitleInput:'',
+        photo: null,
+        title:'',
         contents: [],
       },
       badRequest: 0,
@@ -84,10 +84,10 @@ export default class AddFood extends React.Component {
       case "Meal Title":
         return (
           <AddMealTitle
-            mealTitleInput={this.state.basket.mealTitleInput}
+            mealTitleInput={this.state.basket.title}
             handleMealTitleInputChange={this.handleBasketInputChange}
 
-            mealPhoto= {this.state.basket.mealPhoto}
+            mealPhoto= {this.state.basket.photo}
             handleMealPhotoChange= {this.handleBasketInputChange}
 
             handleSkipClick={this.handleSkipMealTitle}
@@ -227,12 +227,12 @@ export default class AddFood extends React.Component {
     //reset state
     this.setState({
       basket: {
-        mealTitleInput:'',
+        title:'',
         contents: [],
       },
       natLangInput: '',
       singleItemInput:'',
-      mealTitleInput:'',
+      title:'',
       searchResults: null,
       badRequest: 0,
     })
@@ -241,7 +241,7 @@ export default class AddFood extends React.Component {
   emptyBasket = () => {
     this.setState({
       basket: {
-        mealTitleInput:'',
+        title:'',
         contents: []
       },
     })

@@ -18,13 +18,6 @@ export default class Log extends React.Component {
     })
   }
 
-  handleMiscSelect = (food) => {
-    this.props.handleSelect(food, "Misc", "Log")
-  }
-
-  handleMealSelect = (meal) => {
-    this.props.handleSelect(meal, "Meal", "Log")
-  }
   renderMeals(){
     return (
       <div className="meals">
@@ -33,7 +26,8 @@ export default class Log extends React.Component {
             key={id}
             meal={meal}
             handleMealSelect={(e) => {
-              this.handleMealSelect(meal)
+              e.stopPropagation();
+              this.props.handleMealSelect(meal, 'Log', id)
             }}
             editMode={this.state.editMode}
             handleDelete={(e) => {
@@ -55,8 +49,7 @@ export default class Log extends React.Component {
             key={id}
             appView={this.props.currentView}
             onSelectFood={(e) => {
-              this.handleMiscSelect(food);
-              console.log("misc food select from log")
+              this.props.handleFoodSelect(food, 'Log', id);
             }}
             editMode={this.state.editMode}
             handleDelete={(e) => {

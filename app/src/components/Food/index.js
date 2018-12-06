@@ -17,7 +17,7 @@ export default function Food(props) {
 }
 
 function renderDeleteButton(props){
-  if (props.addFoodView === "Basket" &&  props.appView === "Add Food") {
+  if (props.addFoodView === "Basket") {
     return deleteButton(props)
   } else if (props.editMode) {
     return deleteButton(props)

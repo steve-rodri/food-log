@@ -12,7 +12,7 @@ export default function AddMealTitle (props){
           <input
             id="photo-upload"
             type="file"
-            name='mealPhoto'
+            name='photo'
             src={props.mealPhoto}
             onChange={props.handleMealPhotoChange}
           ></input> */}
@@ -20,7 +20,7 @@ export default function AddMealTitle (props){
         <h2 className="form-title" id='meal-title-prompt'>Give This Meal A Name:</h2>
 
           <input
-            name="mealTitleInput"
+            name="title"
             id="meal-title-input"
             value= {props.mealTitleInput}
             onChange={props.handleMealTitleInputChange}

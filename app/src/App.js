@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import LoginPage from './components/LoginPage/index.js';
 import AddFood from './components/AddFood/index.js';
 import Log from './components/Log/index.js';
+import ExpandedMeal from './components/ExpandedMeal/index.js';
 import './App.css';
 
 class App extends Component {
@@ -15,6 +16,10 @@ class App extends Component {
         meals: [],
         misc: []
       },
+      selection: {
+        meal: {},
+        food: {}
+      }
     }
   }
 
@@ -77,8 +82,22 @@ class App extends Component {
             currentView={this.state.currentView}
 
             handleViewChange={this.handleViewChange}
-            handleSelect={this.handleSelect}
+            handleMealSelect={this.handleMealSelect}
+            handleFoodSelect={this.handleFoodSelect}
             onDelete={this.handleDelete}
+          />
+        )
+      case 'Expanded Meal':
+        return (
+          <ExpandedMeal
+            meal={this.state.selection.meal}
+
+            handleViewChange={this.handleViewChange}
+            handleFoodSelect={this.handleFoodSelect}
+            onDelete={this.handleDeleteFromExpanded}
+
+            appView={this.state.currentView}
+            prevView={this.state.prevView}
           />
         )
       default:
@@ -91,24 +110,34 @@ class App extends Component {
     }
   }
 
-  handleSelect = (food, type, view) => {
-
+  handleFoodSelect = (food, view, id) => {
+    const selection = {...this.state.selection};
     this.setState({
-      selection: food,
+      selection: {
+        ...selection,
+        food: {
+          id: id,
+          ...food
+        }
+      }
     });
+    console.log("set View to Targets")
+    console.log("set prev View to view")
+  }
 
-    switch (type) {
-      case "Misc":
-        console.log("set View to Targets")
-        console.log("set prev View to Log")
-        break;
-      case "Meal":
-        console.log("set View to Expand Meal")
-        console.log("set prev View to Log")
-        break;
-      default:
-        break;
-    }
+  handleMealSelect = (meal, view, id) => {
+    const selection = {...this.state.selection};
+    this.setState({
+      selection: {
+        ...selection,
+        meal: {
+          id: id,
+          ...meal
+        }
+      }
+    });
+    this.setCurrentView('Expanded Meal');
+    this.setPrevView(view);
   }
 
   handleDelete = (id, type) => {
@@ -142,6 +171,43 @@ class App extends Component {
     }
   }
 
+  handleDeleteFromExpanded = (id) => {
+    const log = {...this.state.log}
+    const selection = {...this.state.selection}
+    const meals = log.meals
+    const meal = selection.meal
+    const mealId = meal.id;
+    const mealContents = meal.contents
+
+    mealContents.splice(id, 1);
+
+    //if no meal contents
+    if (mealContents.length === 0) {
+      //delete meal from log
+      meals.splice(mealId, 1);
+    } else {
+      meals[mealId] = {
+        contents: mealContents,
+        title: selection.meal.title,
+        photo: selection.meal.photo
+      }
+    }
+
+
+    this.setState({
+      log: {
+        ...log,
+      },
+      selection: {
+        ...selection,
+        meal: {
+          ...meal,
+          contents: mealContents
+        }
+      }
+    })
+  }
+
   logBasket = (basket, addTitle) => {
     //addTitle is a boolean
     const tempBasket = {...basket};
@@ -151,7 +217,7 @@ class App extends Component {
     if (basket.contents.length !== 0) {
       if (basket.contents.length > 1) {
         if (!addTitle) {
-          tempBasket.mealTitleInput = '';
+          tempBasket.title = '';
         }
         this.setState({
           log: {
