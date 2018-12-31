@@ -10,7 +10,7 @@ class App extends Component {
     super(props)
     this.state = {
       userName: "",
-      currentView: "Add Food",
+      currentView: "Login",
       prevView: '',
       log: {
         meals: [],
