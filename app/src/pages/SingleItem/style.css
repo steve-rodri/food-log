@@ -1,0 +1,62 @@
+.SingleItem > header {
+  padding-bottom: 0;
+}
+
+.SingleItem > header > button {
+  justify-self: right;
+}
+
+.SingleItem > main {
+  display: grid;
+  align-content: center;
+  padding: 0 10px;
+  grid-gap: 5px;
+}
+
+.SingleItem > main > h3 {
+  justify-self: start;
+}
+
+@media (min-width: 600px) {
+  .SingleItem > main {
+    grid-gap: 20px;
+  }
+}
+
+.SingleItem > main > form {
+  display: grid;
+  padding: 10px;
+  position: sticky;
+  bottom: 87px;
+  background-color: var(--default-black);
+}
+
+.SingleItem-Results-Group {
+  display: grid;
+  grid-gap: 5px;
+  padding: 10px 0;
+}
+
+
+@media (min-width: 600px) {
+  .SingleItem-Results-Group {
+    display: grid;
+    grid-gap: 12.5px;
+    width: 100%;
+    overflow: auto;
+    grid-auto-flow: column;
+    justify-content: start;
+    align-content: center;
+    -ms-overflow-style: none;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .SingleItem-Results-Group::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.SingleItem-Results-Group > h3 {
+  padding: 10px 0;
+  justify-self: start;
+}

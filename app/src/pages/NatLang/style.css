@@ -1,0 +1,20 @@
+.NatLang-Greeting {
+  display: grid;
+  grid-gap: 5px;
+}
+
+.NatLang > main {
+  display: grid;
+}
+
+.NatLang > main > form {
+  display: grid;
+  padding: 0 10px;
+  width: 100%;
+}
+
+.NatLang > main > form > textarea {
+  font-size: 20px;
+  padding: 20px 10px;
+  resize: none;
+}

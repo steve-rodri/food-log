@@ -1,36 +1,30 @@
-import data from './nutrient-conversion-table';
+import nutrientData from './nutrient-conversion-table';
 
 
-function getSumOfNutrientFromFood(food, nutrientName){
+export function getSumOfNutrientFromFood(food, name){
   if (Array.isArray(food)) {
-    const nutrientValues = food.map(ingredient => {
-      const nutrientValue = nutrientOfFood(ingredient, findIdOfNutrient(nutrientName))
-        .value;
-      return nutrientValue;
+    const nutrientValues = food.map(i => {
+      return nutrientOfFood(i, findIdOfNutrient(name)).value;
     });
     const sum = nutrientValues.reduce((a, b) => a + b);
-    const total = Math.round(sum, 1);
-    return total;
+    return Math.round(sum, 1);
   } else {
-    const nutrientValue = nutrientOfFood(food, findIdOfNutrient(nutrientName))
-      .value;
-    return Math.round(nutrientValue, 1);
+    const nutrient = nutrientOfFood(food, findIdOfNutrient(name));
+    if (!nutrient) return 0
+    if (nutrient.value > 0 && nutrient.value < 1) return nutrient.value.toFixed(2);
+    return Math.round(nutrient.value, 1);
   }
 }
 
 function nutrientOfFood(food, id) {
-  const nutrient = food.full_nutrients.filter(
-    nutrient => nutrient.attr_id === id
+  if (!food || !food.fullNutrients) return;
+  const nutrient = food.fullNutrients.filter(
+    nutrient => nutrient.attrId === id
   );
   return nutrient[0];
 }
 
 function findIdOfNutrient(name) {
-  const nutrient = data.filter(nutrient => nutrient.name === name);
-  return nutrient[0].attr_id;
-}
-
-
-export {
-  getSumOfNutrientFromFood
+  const nutrient = nutrientData.filter(nutrient => nutrient.name === name);
+  return nutrient[0].attrId;
 }

@@ -1,0 +1,18 @@
+.ExpandedMeal > main {
+  display: grid;
+  align-content: start;
+  grid-gap: 5px;
+}
+
+.ExpandedMeal-Title {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  padding: 0;
+  cursor: default;
+  background: transparent;
+  color: inherit;
+  outline: none;
+}

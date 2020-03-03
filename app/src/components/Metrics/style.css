@@ -1,0 +1,26 @@
+.Metrics {
+  display: grid;
+  justify-content: end;
+  align-items: center;
+  height: 75px;
+}
+
+@media (min-width: 600px) {
+  .Metrics {
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: end;
+    align-content: start;
+    font-size: 20px;
+  }
+
+  .Metrics-Calories {
+    font-size: 25px;
+  }
+}
+
+.Metrics-Calories {
+  text-align: right;
+  color: var(--green);
+  font-weight: bold;
+}

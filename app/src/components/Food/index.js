@@ -1,42 +1,36 @@
 import React from "react";
-import Macros from '../Macros/index.js'
+import Metrics from '../Metrics'
 import "./style.css";
 
-export default function Food(props) {
-  const food = props.food;
+export default function Food({ food, onSelect, onDelete, editMode }) {
   return (
-    <div className="food" onClick={props.handleFoodSelect}>
-      <img className="food-image" src={food.photo.thumb} alt={food.food_name} />
-      <h6 className="food-title">
-        {food.serving_qty} {food.serving_unit} {food.food_name}
-      </h6>
-      {renderDeleteButton(props)}
-      {renderMacros(props)}
+    <div className="Food" onClick={onSelect}>
+      <img src={food.photo.thumb} alt={food.foodName} />
+      <Details food={food}/>
+      {editMode?
+        <DeleteButton onDelete={onDelete} editMode={editMode}/>:
+        <Metrics data={food}/>
+      }
     </div>
   );
 }
 
-function renderDeleteButton(props){
-  if (props.addFoodView === "Basket") {
-    return deleteButton(props)
-  } else if (props.editMode) {
-    return deleteButton(props)
-  }
-}
+const DeleteButton = ({ onDelete, editMode }) => (
+  <button className="delete-button" onClick={onDelete}>
+    Delete
+  </button>
+)
 
-function renderMacros(props){
-  const food = props.food;
-  if (!props.editMode) {
-    if (!(props.appView === 'Add Food')) {
-      return <Macros food={food}/>
-    }
-  }
-}
+const Details = ({ food: { foodName, servingQty, servingUnit, servingWeightGrams }}) => (
+  <div className="Food-Details">
+    <h4>{upCase(foodName)}</h4>
+    <div>
+      <h5>{`${servingQty} ${servingUnit}`}</h5>
+      <h5>{`${servingWeightGrams}g`}</h5>
+    </div>
+  </div>
+)
 
-function deleteButton(props) {
-  return (
-    <button className="delete-button" onClick={props.handleDelete}>
-      Delete
-    </button>
-  );
+function upCase(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }

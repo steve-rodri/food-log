@@ -1,0 +1,22 @@
+.MacroNutrients {
+  display: grid;
+  grid-column-gap: 7.5px;
+  width: 75px;
+  grid: repeat(3, 1fr) / repeat(2, 1fr);
+  align-items: center;
+}
+
+@media (min-width: 600px) {
+  .MacroNutrients {
+    width: auto;
+  }
+}
+
+.MacroNutrients-Name {
+  font-weight: bold;
+  text-align: left;
+}
+
+.MacroNutrients > p {
+  text-align: right;
+}

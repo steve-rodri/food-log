@@ -1,0 +1,16 @@
+.AddMealTitle > main {
+  grid-area: span 2;
+  display: grid;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.AddMealTitle > main > form > p {
+  font-size: 1.3em;
+  text-align: center;
+}
+
+.AddMealTitle > main > form {
+  display: grid;
+  grid-gap: 15px;
+}

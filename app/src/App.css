@@ -1,33 +1,165 @@
 .Page {
-  height: 100vh;
   display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: .75fr 4.5fr .75fr;
+  grid: auto 1fr auto / auto;
+  min-height: 100vh;
+  width: 100vw;
+  position: relative;
 }
 
-header {
-  position: sticky;
-  top: 0%;
-  background-color: rgba(0,0,0,.9);
-  padding: 10px;
+.Page > main {
   display: grid;
-  grid-template-columns: 25% 50% 25%;
-  grid-template-rows: auto;
-  grid-template-areas:
-  "left middle right";
+  padding: 0 5px;
+}
+
+.Page > header {
+  display: grid;
+  grid-auto-flow: column;
   align-items: center;
+  grid-gap: 25px;
+  position: sticky;
+  padding: 25px 20.5px 25px 25px;
+  top: 0%;
+  background-color: var(--default-black);
+}
+
+.Page > header > input {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+  border: none;
+  padding: 0;
+  cursor: default;
+  background: transparent;
+  font-family: inherit;
+  color: inherit;
+  outline: none;
+  border-radius: 0;
+  width: 100%;
+}
+
+.Page > footer {
+  display: grid;
+  position: sticky;
+  bottom: 0%;
+  background: var(--default-black);
+  justify-content: center;
+}
+
+.Page > footer > .Buttons {
+  display: grid;
+  width: 100vw;
+  max-width: 350px;
+  grid-template-columns: repeat( auto-fit, minmax(75px, 1fr) );
+  grid-auto-flow: column;
+  justify-items: space-evenly;
+  align-items: center;
+  grid-gap: 10px;
+  padding: 5px;
+}
+
+.Log > main,
+.Basket > main {
+  align-content: start;
+  grid-gap: 5px;
+}
+
+@media (min-width: 600px) {
+  .Basket > main,
+  .Log > main {
+    grid-gap: 15px;
+    grid: auto / repeat( auto-fit, minmax(239px, auto));
+    grid-auto-flow: dense;
+    justify-content: center;
+    align-content: center;
+  }
+}
+
+
+.Meal,
+.Food {
+  display: grid;
+  grid: auto / 75px auto 75px;
+  grid-gap: 10px;
+  align-items: start;
+  padding: 12.5px;
+  background-color: transparent;
+  color: var(--default-white);
+  border: 3px outset var(--default-gray);
+  box-shadow: 2px 2px 5px 0 var(--default-gray);
+  border-radius: 20px;
+  min-height: 75px;
+}
+
+@media (min-width: 600px) {
+  .Meal,
+  .Food {
+    grid: repeat(2, 1fr) / repeat(2, 1fr);
+  }
+
+  .Meal {
+    height: 464px;
+    width: 464px;
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .Food {
+    width: 210px;
+    height: 210px;
+  }
+}
+
+.Meal:hover,
+.Food:hover, {
+  cursor: pointer;
+}
+
+.Meal-Image,
+.Food > img {
+  width: 75px;
+  height: 75px;
+  border-radius: 20px;
+}
+
+@media (min-width: 600px) {
+  .Meal-Image,
+  .Food > img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.Meal-Image {
+  background-color: lightgray;
+}
+
+
+input {
+  font-size: 1.8em;
+  border-radius: 10px;
+  text-align: center;
+}
+
+input, textarea {
+  background-color: transparent;
+  color: var(--default-white);
+  border: 2px solid transparent;
+  outline: none
+}
+
+input:focus {
+  outline: none;
 }
 
 button {
-  height: 55px;
-  width: 100px;
   font-size: 19px;
-  border: 1px solid white;
-  border-radius: 2px;
-  padding: 12px 18px;
-  background-color: rgba(0, 0, 0, 0);
+  font-family: "Gill Sans";
+  border: 3px outset var(--default-white);
+  border-radius: 10px;
+  padding: 25px 12px;
+  background-color: transparent;
   color: white;
-  margin: 0 5px;
+  outline: none;
 }
 
 button:hover {
@@ -40,16 +172,7 @@ button:active {
 
 .delete-button {
   color: red;
-  background-color: white;
   border-color: red;
-  width: 50px;
-  height: 25px;
-  font-size: 12px;
-  padding: 0px;
-
-  grid-area: right;
-  justify-self: right;
-  align-self: center;
 }
 
 .delete-button:active {
@@ -57,67 +180,9 @@ button:active {
   border-style: inset;
 }
 
-main {
-  display:flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: top;
-  overflow: scroll;
-}
-
-input {
-  width: 60%;
-  height: 10px;
-  font-size: 20px;
-  padding: 15px;
-  border-radius: 2px;
-}
-
-h1{
-  margin: 5px 0;
-}
-
-p{
-  margin: 5px 0;
-  font-size: 12px;
-}
-
-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-}
-
-textarea {
-  width: 100%;
-  height: 93%;
-  font-size: 20px;
-  padding: 15px;
-  border-radius: 14px;
-  resize: none;
-}
-
-textarea:focus {
-  outline: 0;
-}
-
-footer {
-  position: sticky;
-  bottom: 0%;
-  padding: 10px;
-  background-color: rgba(0,0,0,.9);
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@media (min-width: 700px) {
-  footer {
-    display: grid;
-    grid-template-columns: 20% 60% 20%;
-    grid-template-rows: auto;
-    grid-template-areas:
-    "left middle right";
+@media (min-width: 600px) {
+  .delete-button {
+    height: 100px;
+    width: 100px;
   }
 }
