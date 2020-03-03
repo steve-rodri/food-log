@@ -18,6 +18,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
+    "deploy":"react-scripts build && cd build && mv index.html 200.html && echo food-log-321e.surge.sh > CNAME && surge",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
