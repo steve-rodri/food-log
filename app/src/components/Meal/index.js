@@ -5,7 +5,7 @@ import "./style.css";
 const Meal = ({ meal, onSelect, onDelete, editMode }) => {
   return (
     <div className="Meal" onClick={onSelect}>
-      <div className="Meal-Image"/>
+      <ImageCollage meal={meal}/>
       <MealContents meal={meal}/>
       {editMode?
         <DeleteButton onDelete={onDelete}/>:
@@ -26,6 +26,18 @@ const MealContents = ({ meal }) => {
           </p>
         ))}
       </div>
+    </div>
+  )
+}
+
+const ImageCollage = ({ meal}) => {
+  return (
+    <div className="Meal-Image-Collage">
+      {
+        meal.contents.map( food => (
+          <img src={food.photo.thumb} alt={food.foodName}/>
+        ))
+      }
     </div>
   )
 }

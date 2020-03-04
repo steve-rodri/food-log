@@ -33,7 +33,7 @@
 
 .SingleItem-Results-Group {
   display: grid;
-  grid-gap: 5px;
+  grid-gap: 12.5px;
   padding: 10px 0;
 }
 
