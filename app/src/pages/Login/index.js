@@ -23,14 +23,13 @@ export default function Login(props){
   }
 
   const uiConfig = {
-  signInFlow: 'redirect',
+  signInFlow: 'popup',
   callbacks: {
     signInSuccessWithAuthResult: onSuccess,
     signInFailure: onFailure
   },
   signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID
   ]
 };
 
