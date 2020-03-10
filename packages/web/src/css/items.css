@@ -1,0 +1,78 @@
+.Meal,
+.Food {
+  display: grid;
+  grid: auto / 75px auto 75px;
+  grid-gap: 10px;
+  align-items: start;
+  padding: 12.5px;
+  background-color: transparent;
+  color: var(--default-white);
+  border: 3px outset var(--default-gray);
+  box-shadow: 2px 2px 5px 0 var(--default-gray);
+  border-radius: 20px;
+  min-height: 75px;
+}
+
+@media (min-width: 600px) {
+  .Meal,
+  .Food {
+    grid: repeat(2, 1fr) / repeat(2, 1fr);
+  }
+
+  .Meal {
+    height: 464px;
+    width: 464px;
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .Food {
+    width: 210px;
+    height: 210px;
+  }
+}
+
+.Meal:hover,
+.Food:hover, {
+  cursor: pointer;
+}
+
+.Meal-Image-Collage,
+.Food > img {
+  width: 75px;
+  height: 75px;
+  border-radius: 20px;
+}
+
+@media (min-width: 600px) {
+  .Meal-Image-Collage,
+  .Food > img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.Meal-Image-Collage {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid: repeat( auto-fill, minmax(25px, auto)) / repeat( auto-fill, minmax(25px, auto));
+  border-radius: 15px;
+}
+
+.Meal-Image-Collage > img {
+  max-width: 25px;
+}
+
+.Meal-Image-Collage > img:nth-child(1) {
+  border-radius: 5px 0 0 0;
+}
+.Meal-Image-Collage > img:nth-child(3) {
+  border-radius: 0 5px 0 0;
+}
+.Meal-Image-Collage > img:nth-child(7) {
+  border-radius: 0 0 5px 0;
+}
+.Meal-Image-Collage > img:nth-child(9) {
+  border-radius: 0 0 0 5px;
+}

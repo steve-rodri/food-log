@@ -1,0 +1,35 @@
+button {
+  font-size: 19px;
+  font-family: "Gill Sans";
+  border: 3px outset var(--default-white);
+  border-radius: 10px;
+  padding: 25px 12px;
+  background-color: transparent;
+  color: white;
+  outline: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:active {
+  background-color: rgba(255,255,255,.2);
+}
+
+.delete-button {
+  color: red;
+  border-color: red;
+}
+
+.delete-button:active {
+  background-color: rgba(0,0,0,.1);
+  border-style: inset;
+}
+
+@media (min-width: 600px) {
+  .delete-button {
+    height: 100px;
+    width: 100px;
+  }
+}
