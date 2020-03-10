@@ -1,0 +1,15 @@
+{
+  "name": "@fl/web",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fl/common": "1.0.0"
+  },
+  "scripts": {
+    "deploy": "react-scripts build && cd build && mv index.html 200.html && echo food-log-321e.surge.sh > CNAME && surge",
+    "start": "react-app-rewired start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
+}

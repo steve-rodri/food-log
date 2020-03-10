@@ -1,0 +1,31 @@
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#calorie-meter {
+  background-color: white;
+  height: 30px;
+  width: 70%;
+}
+
+#calorie-target {
+  height: 30px;
+  width: 80%;
+  border-right: 3px solid black;
+}
+
+#calorie-level {
+  height: 30px;
+  background-color: rgb(0,255,100);
+}
+
+#calorie-number {
+  margin: 0;
+  color: black;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: monospace;
+}
