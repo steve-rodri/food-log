@@ -1,5 +1,6 @@
-import * as redux from "./redux";
-import * as services from "./services";
+import redux from "./redux";
+import services from "./services";
+import themes from "./themes";
 import * as helpers from "./helpers";
 
-export { redux, services, helpers };
+export { redux, services, helpers, themes };

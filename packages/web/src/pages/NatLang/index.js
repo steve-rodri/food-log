@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { redux, helpers } from "@fl/common";
-import "./style.css";
-import buttonstyles from "../../css/buttons.module.css";
 
 const {
   actions: { setView },
@@ -28,13 +26,17 @@ const NatLang = () => {
       </header>
 
       <main>
-        <Query query={query} onChange={handleChange} onSubmit={handleSubmit} />
+        <InputField
+          query={query}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+        />
       </main>
 
       <footer>
         <div className="Buttons">
           <SearchButton />
-          <LogButton onSubmit={handleSubmit} query={query} />
+          <LogButton onSubmit={handleSubmit} active={query.length > 0} />
         </div>
       </footer>
     </div>
@@ -56,7 +58,7 @@ const Greeting = () => {
   );
 };
 
-const Query = ({ value, onSubmit, onChange }) => {
+const InputField = ({ value, onSubmit, onChange }) => {
   const queryRef = useRef();
   useEffect(() => queryRef.current.focus(), []);
   return (

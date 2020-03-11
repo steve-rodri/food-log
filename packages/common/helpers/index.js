@@ -3,6 +3,10 @@ import * as nutrient from "./nutrient";
 
 export { nutrient };
 
+export function upCase(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export function getMealTypebyTime() {
   const currentTime = moment().format();
   const morning = moment(

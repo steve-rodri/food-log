@@ -5,3 +5,9 @@ export const setView = view => {
     payload: view
   };
 };
+
+export const setPrevious = () => {
+  return {
+    type: types.SET_PREVIOUS
+  };
+};

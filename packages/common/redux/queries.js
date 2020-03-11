@@ -1,18 +1,17 @@
-import * as redux from "../redux";
+import store from "./store";
+import * as actions from "./actions/";
 import {
   getNatLangFoodResults,
   getSingleItemResults
 } from "../services/nutritionix";
+
 const {
-  store,
-  actions: {
-    addItemsToBasket,
-    addItemsToLog,
-    setView,
-    setResults,
-    clearResults
-  }
-} = redux;
+  addItemsToBasket,
+  addItemsToLog,
+  setView,
+  setResults,
+  clearResults
+} = actions;
 
 export async function naturalLanguage(query) {
   const { dispatch } = store;

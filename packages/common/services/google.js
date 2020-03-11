@@ -1,17 +1,21 @@
 import axios from "axios";
 import humps from "humps";
-import * as redux from "../redux";
+import redux from "../redux";
+import { AsyncStorage } from "react-native";
 
 const {
-  store,
+  store: { dispatch, getState },
   actions: { fetchUserPending, fetchUserRejected, fetchUserSuccess, setView }
 } = redux;
 
-export async function fetchUser(options) {
-  const accessToken = localStorage.getItem("google_access_token");
-  const { view } = store.getState();
+export const fetchUser = async (options = {}) => {
+  const { native } = options;
+  let accessToken;
+  if (native) accessToken = await AsyncStorage.getItem("google_access_token");
+  else accessToken = localStorage.getItem("google_access_token");
+  const { view } = getState();
 
-  store.dispatch(fetchUserPending());
+  dispatch(fetchUserPending());
   try {
     const resp = await axios({
       method: "get",
@@ -24,16 +28,17 @@ export async function fetchUser(options) {
         data => humps.camelizeKeys(data)
       ]
     });
-    store.dispatch(fetchUserSuccess(resp.data));
+    dispatch(fetchUserSuccess(resp.data));
 
-    if (view.previous) store.dispatch(setView(view.previous));
-    else store.dispatch(setView("NatLang"));
+    if (view.previous) dispatch(setView(view.previous));
+    else dispatch(setView("NatLang"));
   } catch (e) {
     if (e.response && e.response.status === 401) {
-      localStorage.clear();
-      store.dispatch(fetchUserRejected(e));
-      store.dispatch(setView("Login"));
+      if (native) await AsyncStorage.removeItem("google_access_token");
+      else localStorage.removeItem("google_access_token");
+      dispatch(fetchUserRejected(e));
+      dispatch(setView("Login"));
     }
     return null;
   }
-}
+};
